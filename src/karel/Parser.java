@@ -53,6 +53,17 @@ public class Parser {
 	}
     }
 
+    public boolean expect(String expected, Token got) {
+	if ((TokenType.CHAR == got.getType())
+	    && (expected.equals(got.getSVal()))) {
+	    return true;
+	} else {
+	    System.err.println("Expected " + expected
+			       + ", but found " + got.getSVal());
+	    return false;
+	}
+    }
+
     public boolean expectDo(Token t) {
 	return expect(TokenType.DO, t);
     }
@@ -258,7 +269,7 @@ public class Parser {
     public boolean expectSemicolon1(Program p, Token t, Lexer l)
 	throws java.io.IOException
     {
-	return isSemicolon(t);
+  	return expect(";", t);
     }
 
     public boolean expectDefInst(Program p, Token t, Lexer l) throws java.io.IOException {
