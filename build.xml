@@ -54,6 +54,9 @@
 	  depends="clean"
 	  description="Cleans out the KarelJ directories">
     <delete file="${lib}/karelj.jar"/>
+    <delete file="${dist.dir}.zip"/>
+    <delete file="${dist.dir}.tar"/>
+    <delete file="${dist.dir}.tar.gz"/>
     <delete dir="${apidoc}"/>
     <delete dir="${dist.dir}"/>
     <delete> 
@@ -109,7 +112,7 @@
   </target>
 -->
 
-  <target name="dist"
+  <target name="distpkg"
           depends="build, javadocs"
           description="create the distributable zip file">
     <mkdir dir="${dist.dir}"/>
@@ -122,24 +125,27 @@
     <chmod perm="a+x">
       <fileset dir="${dist.bin}"/>
     </chmod>
-<!--
+  </target>
+
+  <target name="zippkg"
+          depends="distpkg"
+          description="create the distributable zip file">
     <zip zipfile="${dist.dir}.zip" 
          basedir="." 
-         includes="${dist.dir}"/>
-    <tar longfile="gnu"
-         tarfile="${dist.dir}.tar">
-      <tarfileset dir="${dist.dir}/.." mode="755" username="ant" group="ant">
-        <include name="${dist.dir}/bin/*"/>
-      </tarfileset> 
-      <tarfileset dir="${dist.dir}/.." username="ant" group="ant"> 
-        <include name="${dist.dir}/**"/>
-        <exclude name="${dist.dir}/bin/*"/>
-      </tarfileset> 
-    </tar>
-    <gzip zipfile="${dist.dir}.tar.gz" 
-          src="${dist.dir}.tar"/>
-    <delete file="${dist.dir}.tar"/>
-    <delete dir="${dist.dir}"/>
--->
+         includes="${dist.dir}/**"/>
   </target>
+
+  <target name="targzpkg"
+          depends="distpkg"
+          description="create the distributable tarball file">
+    <tar tarfile="${dist.dir}.tar"
+         basedir="."
+         includes="${dist.dir}/**"/>
+    <gzip zipfile="${dist.dir}.tar.gz" src="${dist.dir}.tar"/>
+  </target>
+
+  <target name="dist"
+          depends="zippkg, targzpkg"
+          description="creates a release distribution (zip and tar.gz)"/>
+
 </project>
