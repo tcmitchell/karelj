@@ -17,3 +17,7 @@ Add .bat scripts for Windows
 build a new Website
 
 create a README file
+
+add manifest to execute karel out of the jar file.  see ant.jar.
+
+try jar files with just manifests to run karelc, karelworld, etc.  see ant.jar.
