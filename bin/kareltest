@@ -15,7 +15,7 @@ case "`uname -m`" in
 esac
 
 # Resolve symlinks. See 4152645.
-while [ -L "$PRG" ]; do
+while [ -h "$PRG" ]; do
     ls=`/bin/ls -ld "$PRG"`
     link=`/usr/bin/expr "$ls" : '.*-> \(.*\)$'`
     if /usr/bin/expr "$link" : '/' > /dev/null; then

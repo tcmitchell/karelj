@@ -14,7 +14,7 @@ case "`uname -m`" in
         ;;
 esac
 
-while /usr/bin/test -L "$PRG" ; do
+while [ -h "$PRG" ] ; do
     ls=`/bin/ls -ld "$PRG"`
     link=`/usr/bin/expr "$ls" : '.*-> \(.*\)$'`
     if /usr/bin/expr "$link" : '/' > /dev/null; then
