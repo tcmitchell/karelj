@@ -20,6 +20,8 @@
 
 package karel.swingui;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import javax.swing.*;
 
@@ -44,6 +46,16 @@ public class Main {
 	}
 
 	KarelFrame frame = new KarelFrame("karel");
+
+	// When the user clicks the close window button on the frame,
+	// we need to shut down.
+	frame.addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent evt) {
+	      System.exit(0);
+	    }
+	  }
+				);
+
 	frame.setSize(300, 300);
 	frame.show();
 	if (worldFile != null) frame.loadWorld(worldFile);
