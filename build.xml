@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<project name="KarelJ" default="build">
+
+  <property name="VERSION" value="1.0rc1"/>
+
+  <!-- 
+       ===================================================================
+         Set up the directories
+       =================================================================== 
+  -->
+  <property name="src" value="src"/>
+  <property name="lib" value="lib"/>
+  <property name="docs" value="docs"/>
+  <property name="classes" value="classes"/>
+  <property name="doc" value="doc"/>
+  <property name="apidoc" value="${doc}/api"/>
+  <property name="bin.dir" value="bin"/>
+
+  <property name="dist.dir" value="karelj-${VERSION}"/>
+  <property name="dist.bin" value="${dist.dir}/bin"/>
+  <property name="dist.lib" value="${dist.dir}/lib"/>
+  <property name="dist.src" value="${dist.dir}/src"/>
+  <property name="dist.doc" value="${dist.dir}/doc"/>
+  <property name="dist.examples" value="${dist.dir}/examples"/>
+  <property name="dist.share" value="${dist.dir}/share"/>
+
+
+  <!-- 
+       =================================================================== 
+       =================================================================== 
+  -->
+  <target name="build" 
+	  description="Compiles the KarelJ classes.">
+    <mkdir dir="${classes}"/>
+    <javac srcdir="${src}"
+	   classpath="${lib}/junit.jar;${lib}/silk.jar" 
+	   destdir="${classes}"/>
+    <jar jarfile="${lib}/karelj.jar"
+	 basedir="${classes}"/>
+  </target>
+
+  <!-- 
+       ===================================================================
+         Clean the directories
+       =================================================================== 
+  -->
+  <target name="clean" 
+	  description="Cleans out the KarelJ directories">
+    <delete dir="${classes}"/>
+  </target>
+
+  <target name="distclean" 
+	  depends="clean"
+	  description="Cleans out the KarelJ directories">
+    <delete file="${lib}/karelj.jar"/>
+    <delete dir="${apidoc}"/>
+    <delete dir="${dist.dir}"/>
+    <delete> 
+      <fileset dir="." includes="**/*~" defaultexcludes="no"/>
+    </delete>
+  </target>
+
+
+  <!-- 
+       ===================================================================
+         Creates the API documentation                             
+       =================================================================== 
+  -->
+  
+  <target name="javadoc_check">
+    <uptodate property="javadoc.notrequired" targetfile="${apidoc}/packages.html" >
+        <srcfiles dir= "${src}" includes="**/*.java"/>
+    </uptodate>
+  </target>
+
+  <target name="javadocs" 
+	  depends="javadoc_check"
+	  unless="javadoc.notrequired"
+	  description="Creates the API documentation">
+    <mkdir dir="${apidoc}"/>
+    <javadoc packagenames="karel.*"
+             sourcepath="${src}"
+             classpath="${lib}/junit.jar" 
+             destdir="${apidoc}"
+	     overview="${src}/overview.html"
+             author="true"
+             version="true"
+             use="true"
+             windowtitle="KarelJ"
+             doctitle="&lt;h1&gt;KarelJ&lt;/h1&gt;">
+    </javadoc>
+  </target>
+
+<!--
+
+  <target name="kdist1"
+          depends="build, javadocs"
+          description="create the distributable zip file">
+    <zip zipfile="karelj-${VERSION}.zip">
+      <zipfileset dir="bin" prefix="karelj-${VERSION}/bin"/>
+      <zipfileset dir="lib" prefix="karelj-${VERSION}/lib"/>
+      <zipfileset dir="src" prefix="karelj-${VERSION}/src"/>
+      <zipfileset dir="doc" prefix="karelj-${VERSION}/doc"/>
+      <zipfileset dir="examples" prefix="karelj-${VERSION}/examples"/>
+      <zipfileset dir="share" prefix="karelj-${VERSION}/share"/>
+      <zipfileset dir="." includes="build.xml" prefix="karelj-${VERSION}"/>
+    </zip>
+  </target>
+-->
+
+  <target name="dist"
+          depends="build, javadocs"
+          description="create the distributable zip file">
+    <mkdir dir="${dist.dir}"/>
+    <copy todir="${dist.dir}">
+      <fileset dir="."
+         includes="bin/*, lib/*, src/**/*, doc/**/*, examples/*, share/*"/>
+      <fileset dir="."
+         includes="build.xml"/>
+    </copy>
+    <chmod perm="a+x">
+      <fileset dir="${dist.bin}"/>
+    </chmod>
+<!--
+    <zip zipfile="${dist.dir}.zip" 
+         basedir="." 
+         includes="${dist.dir}"/>
+    <tar longfile="gnu"
+         tarfile="${dist.dir}.tar">
+      <tarfileset dir="${dist.dir}/.." mode="755" username="ant" group="ant">
+        <include name="${dist.dir}/bin/*"/>
+      </tarfileset> 
+      <tarfileset dir="${dist.dir}/.." username="ant" group="ant"> 
+        <include name="${dist.dir}/**"/>
+        <exclude name="${dist.dir}/bin/*"/>
+      </tarfileset> 
+    </tar>
+    <gzip zipfile="${dist.dir}.tar.gz" 
+          src="${dist.dir}.tar"/>
+    <delete file="${dist.dir}.tar"/>
+    <delete dir="${dist.dir}"/>
+-->
+  </target>
+</project>

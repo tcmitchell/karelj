@@ -1,0 +1,14 @@
+
+BEGINNING-OF-PROGRAM
+	DEFINE-NEW-INSTRUCTION turnright AS
+		ITERATE 3 TIMES
+			turnleft;
+
+	BEGINNING-OF-EXECUTION
+		move;
+		turnright;
+		move;
+		turnoff
+	END-OF-EXECUTION
+
+END-OF-PROGRAM

@@ -1,0 +1,15 @@
+kareltest should take a -text argument to run junit in text mode
+instead of gui mode.  But leave gui mode as the default.
+
+Document the distribution directories
+
+Document the bin dir executables
+
+Provide appropriate usage and argument error checking to the main
+routines.
+
+Make bin directory files executable in zip file
+
+Provide pre-compiled (.ser) files in examples directory
+
+Allow either .ser or .k files in 'karel'.

@@ -1,0 +1,8 @@
+
+BEGINNING-OF-PROGRAM
+	BEGINNING-OF-EXECUTION
+		WHILE not-facing-east DO
+		      turnleft;
+		turnoff
+	END-OF-EXECUTION
+END-OF-PROGRAM

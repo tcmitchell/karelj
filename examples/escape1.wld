@@ -1,0 +1,21 @@
+World 10 10
+Robot 5 4 1 0
+Wall 3 2 1
+Wall 4 2 1
+Wall 5 2 1
+Wall 6 2 1
+Wall 7 2 1
+Wall 8 2 1
+Wall 2 3 4
+Wall 2 4 4
+Wall 2 5 4
+Wall 2 6 4
+Wall 3 6 1
+Wall 4 6 1
+Wall 5 6 1
+Wall 6 6 1
+Wall 7 6 1
+Wall 8 6 1
+Wall 8 3 4
+Wall 8 4 4
+Wall 8 6 4
