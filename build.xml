@@ -61,6 +61,7 @@
     <delete dir="${dist.dir}"/>
     <delete> 
       <fileset dir="." includes="**/*~" defaultexcludes="no"/>
+      <fileset dir="examples" includes="*.ser"/>
     </delete>
   </target>
 
@@ -95,25 +96,25 @@
     </javadoc>
   </target>
 
-<!--
-
-  <target name="kdist1"
-          depends="build, javadocs"
-          description="create the distributable zip file">
-    <zip zipfile="karelj-${VERSION}.zip">
-      <zipfileset dir="bin" prefix="karelj-${VERSION}/bin"/>
-      <zipfileset dir="lib" prefix="karelj-${VERSION}/lib"/>
-      <zipfileset dir="src" prefix="karelj-${VERSION}/src"/>
-      <zipfileset dir="doc" prefix="karelj-${VERSION}/doc"/>
-      <zipfileset dir="examples" prefix="karelj-${VERSION}/examples"/>
-      <zipfileset dir="share" prefix="karelj-${VERSION}/share"/>
-      <zipfileset dir="." includes="build.xml" prefix="karelj-${VERSION}"/>
-    </zip>
+  <target name="k2ser"
+          depends="build"
+          description="pre-compiles some karel programs for the distribution.">
+    <java classname="karel.Compiler"
+          classpath="${lib}/karelj.jar"
+          fork="yes">
+      <arg value="examples/escape.k"/>
+      <arg value="examples/escape.ser"/>
+    </java>
+    <java classname="karel.Compiler"
+          classpath="${lib}/karelj.jar"
+          fork="yes">
+      <arg value="examples/maze.k"/>
+      <arg value="examples/maze.ser"/>
+    </java>
   </target>
--->
 
   <target name="distpkg"
-          depends="build, javadocs"
+          depends="build, k2ser, javadocs"
           description="create the distributable zip file">
     <mkdir dir="${dist.dir}"/>
     <copy todir="${dist.dir}">
@@ -151,6 +152,6 @@
 
   <target name="dist"
           depends="zippkg, targzpkg"
-          description="creates a release distribution (zip and tar.gz)"/>
+          description="creates a release distribution (zip and tar.gz)."/>
 
 </project>
