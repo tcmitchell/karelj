@@ -54,6 +54,8 @@ public class WorldPanel
 
     Robot fRobot;
 
+    Color beeperColor = new Color(0x66FF33);
+
     public WorldPanel() {
 	addComponentListener(this);
 	fWorld = null;
@@ -148,14 +150,14 @@ public class WorldPanel
 	    for (int s=1; s<=getWorldStreets(); s++) {
 		if (fWorld.checkBeeper(a, s)) {
 		    Point pt = worldToScreen(a, s);
-		    g.setColor(Color.orange);
+		    g.setColor(beeperColor);
 		    g.fillOval(pt.x - x_offset, pt.y - y_offset,
 			       beeper_width, beeper_height);
-//  		    g.setColor(Color.black);
-//  		    g.drawOval(pt.x - x_offset, pt.y - y_offset,
-//  			       beeper_width, beeper_height);
-//  		    g.drawOval(pt.x - x_offset, pt.y - y_offset,
-//  			       beeper_width+1, beeper_height+1);
+ 		    g.setColor(Color.black);
+ 		    g.drawOval(pt.x - x_offset, pt.y - y_offset,
+ 			       beeper_width, beeper_height);
+ 		    g.drawOval(pt.x - x_offset, pt.y - y_offset,
+ 			       beeper_width+1, beeper_height+1);
 		}
 	    }
 	}
