@@ -131,7 +131,7 @@
           depends="distpkg"
           description="create the distributable zip file">
     <zip zipfile="${dist.dir}.zip" 
-         basedir="." 
+         basedir="${dist.dir}/.." 
          includes="${dist.dir}/**"/>
   </target>
 
@@ -139,8 +139,13 @@
           depends="distpkg"
           description="create the distributable tarball file">
     <tar tarfile="${dist.dir}.tar"
-         basedir="."
-         includes="${dist.dir}/**"/>
+         basedir="${dist.dir}/.."
+         includes="${dist.dir}/**"
+         excludes="${dist.dir}/bin/**">
+      <tarfileset dir="${dist.dir}/.." mode="755">
+        <include name="${dist.dir}/bin/**"/>
+      </tarfileset>
+    </tar>
     <gzip zipfile="${dist.dir}.tar.gz" src="${dist.dir}.tar"/>
   </target>
 
