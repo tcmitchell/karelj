@@ -12,6 +12,8 @@ Provide pre-compiled (.ser) files in examples directory
 
 Allow either .ser or .k files in 'karel'.
 
-Catch window close events (click on x in upper right corner), to exit
-cleanly.  --rfrank
+Add .bat scripts for Windows
 
+build a new Website
+
+create a README file

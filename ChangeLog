@@ -1,6 +1,11 @@
+2002-07-25  Tom Mitchell  <tmitchel@sourceforge.net>
+
+	* doc/karel_world.html: Added karel world editor documentation.
+
 2002-07-24  Tom Mitchell  <tmitchel@sourceforge.net>
 
-	* build.xml: Added ChangeLog and THANKS to the distribution.
+	* build.xml: Added LICENSE, ChangeLog and THANKS to the
+	distribution.
 
 	* src/karel/world: Add Bill Yakowenko's world editor
 
