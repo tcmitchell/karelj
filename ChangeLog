@@ -1,13 +1,31 @@
-2001-05-08  Thomas Mitchell  <tmitchel@hops>
+2002-07-24  Tom Mitchell  <tmitchel@sourceforge.net>
+
+	* src/karel/world: Add Bill Yakowenko's world editor
+
+	* src/karel/swingui/WorldPanel.java: Change beeper coloring based
+	on suggestions from Roger Frank.
+
+	* src/karel/tests/WorldTest.java: Upgrade to JUnit 3.7 style
+	asserts.
+
+	* src/karel/Parser.java: Install Bill Yakowenko's patch to handle
+	missing semi-colons properly instead of generating an empty
+	program file.
+
+	* lib/junit.jar: JUnit 3.7
+	
+	* build.xml: Change version to 1.1.  Turn on deprecation warnings.
+	
+2001-05-08  Thomas Mitchell  <tmitchel@sourceforge.net>
 
 	* build.xml: Release KarelJ 1.0
 
-2001-05-07  Thomas Mitchell  <tmitchel@hops>
+2001-05-07  Thomas Mitchell  <tmitchel@sourceforge.net>
 
 	* src/karel/swingui/Main.java: Catch window kill and shut down
 	gracefully
 
-2001-04-26  Thomas Mitchell  <tmitchel@hops>
+2001-04-26  Thomas Mitchell  <tmitchel@sourceforge.net>
 
 	* bin/kareltest: added -test command line argument
 
