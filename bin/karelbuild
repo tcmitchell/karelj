@@ -1,0 +1,33 @@
+#!/bin/sh
+
+PRG=$0
+progname=`basename $0`
+case "`uname -m`" in
+    i[3-6]86  | ia32 | ia64)
+        proc=i386
+        ;;
+    sparc*)
+        proc=sparc
+        ;;
+    *)
+        proc="`uname -m`"
+        ;;
+esac
+
+while /usr/bin/test -L "$PRG" ; do
+    ls=`/bin/ls -ld "$PRG"`
+    link=`/usr/bin/expr "$ls" : '.*-> \(.*\)$'`
+    if /usr/bin/expr "$link" : '/' > /dev/null; then
+	PRG="$link"
+    else
+	PRG="`/usr/bin/dirname $PRG`/$link"
+    fi
+done
+
+APPHOME=`dirname "$PRG"`/.. 
+
+javac -g -d $APPHOME/classes -classpath $APPHOME/lib/junit.jar:$APPHOME/lib/junit.jar `find $APPHOME/src -name '*.java' -print`
+
+cd $APPHOME/classes
+
+jar cf ../lib/karelj.jar *
