@@ -11,3 +11,7 @@ Make bin directory files executable in zip file
 Provide pre-compiled (.ser) files in examples directory
 
 Allow either .ser or .k files in 'karel'.
+
+Catch window close events (click on x in upper right corner), to exit
+cleanly.  --rfrank
+
