@@ -1,5 +1,7 @@
 2002-07-24  Tom Mitchell  <tmitchel@sourceforge.net>
 
+	* build.xml: Added ChangeLog and THANKS to the distribution.
+
 	* src/karel/world: Add Bill Yakowenko's world editor
 
 	* src/karel/swingui/WorldPanel.java: Change beeper coloring based
