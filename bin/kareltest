@@ -25,6 +25,11 @@ while [ -L "$PRG" ]; do
     fi
 done
 
-APPHOME=`dirname "$PRG"`/.. 
+APPHOME=`dirname "$PRG"`/..
 
-java -classpath $APPHOME/lib/karelj.jar:$APPHOME/lib/junit.jar junit.swingui.TestRunner karel.tests.AllTests $@
+HARNESS=junit.swingui.TestRunner
+if [ $1 = "-text" ]; then
+  HARNESS=junit.textui.TestRunner
+fi
+
+java -classpath $APPHOME/lib/karelj.jar:$APPHOME/lib/junit.jar $HARNESS karel.tests.AllTests
