@@ -1,0 +1,4 @@
+2001-04-26  Thomas Mitchell  <tmitchel@hops>
+
+	* bin/kareltest: added -test command line argument
+
