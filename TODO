@@ -1,5 +1,3 @@
-kareltest should take a -text argument to run junit in text mode
-instead of gui mode.  But leave gui mode as the default.
 
 Document the distribution directories
 
