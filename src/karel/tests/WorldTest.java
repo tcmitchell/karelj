@@ -53,21 +53,21 @@ public class WorldTest extends TestCase {
     }
 
     public void testBounds() {
-	assert("isInBounds()", fWorld.isInBounds(fAvenues, fStreets));
-	assert("isInBounds()", ! fWorld.isInBounds(fAvenues + 1,
+	assertTrue("isInBounds()", fWorld.isInBounds(fAvenues, fStreets));
+	assertTrue("isInBounds()", ! fWorld.isInBounds(fAvenues + 1,
 						   fStreets + 1));
     }
 
     public void testBeepers() {
-	assert(!fWorld.checkBeeper(fAvenues, fStreets));
-	assert(fWorld.putBeeper(fAvenues, fStreets));
-	assert(fWorld.checkBeeper(fAvenues, fStreets));
+	assertTrue(!fWorld.checkBeeper(fAvenues, fStreets));
+	assertTrue(fWorld.putBeeper(fAvenues, fStreets));
+	assertTrue(fWorld.checkBeeper(fAvenues, fStreets));
 	try {
 	    fWorld.pickBeeper(fAvenues, fStreets);
 	} catch (KarelNoBeeperAtCornerException e) {
 	    fail("Unexpected KarelNoBeeperAtCornerException");
 	}
-	assert(!fWorld.checkBeeper(fAvenues, fStreets));
+	assertTrue(!fWorld.checkBeeper(fAvenues, fStreets));
 	try {
 	    fWorld.pickBeeper(fAvenues, fStreets);
 	    fail("Expected KarelNoBeeperAtCornerException");
@@ -81,10 +81,10 @@ public class WorldTest extends TestCase {
      */
     public void testWalls() {
   	for (int a=1; a<fAvenues; a++) {
-  	    assert(fWorld.checkEWWall(a, fStreets));
+  	    assertTrue(fWorld.checkEWWall(a, fStreets));
   	}
 	for (int s=1; s<fStreets; s++) {
-  	    assert(fWorld.checkNSWall(fAvenues, s));
+  	    assertTrue(fWorld.checkNSWall(fAvenues, s));
 	}
     }
 
@@ -95,9 +95,9 @@ public class WorldTest extends TestCase {
 	fWorld.addEWWall(startAve, northOfStreet, nBlocks);
 
 	for (int i=0; i<nBlocks; i++) {
-	    assert(fWorld.checkEWWall(startAve + i, northOfStreet));
+	    assertTrue(fWorld.checkEWWall(startAve + i, northOfStreet));
 	}
-	assert( ! fWorld.checkEWWall(startAve + nBlocks, northOfStreet));
+	assertTrue( ! fWorld.checkEWWall(startAve + nBlocks, northOfStreet));
     }
 
     public void testNSWall() {
@@ -107,9 +107,9 @@ public class WorldTest extends TestCase {
 	fWorld.addNSWall(eastOfAve, startStreet, nBlocks);
 
 	for (int i=0; i<nBlocks; i++) {
-	    assert(fWorld.checkNSWall(eastOfAve, startStreet + i));
+	    assertTrue(fWorld.checkNSWall(eastOfAve, startStreet + i));
 	}
-	assert( ! fWorld.checkNSWall(eastOfAve, startStreet + nBlocks));
+	assertTrue( ! fWorld.checkNSWall(eastOfAve, startStreet + nBlocks));
     }
 
     protected void initForEquals(World w) {
@@ -172,9 +172,9 @@ public class WorldTest extends TestCase {
 	WorldParser parser = new WorldParser();
 	try {
 	    fWorld = parser.parse(sr);
-	    assert(fWorld instanceof World);
+	    assertTrue(fWorld instanceof World);
 	    try {
-		assert(fWorld.pickBeeper(3, 3));
+		assertTrue(fWorld.pickBeeper(3, 3));
 		fWorld.pickBeeper(3, 3);
 		fail("Expected KarelNoBeeperAtCornerException");
 	    } catch (KarelNoBeeperAtCornerException e) {
@@ -183,18 +183,18 @@ public class WorldTest extends TestCase {
 	    assertEquals(3, fWorld.getRobotStartStreet());
 	    assertEquals(1, fWorld.getRobotStartDirection());
 	    assertEquals(0, fWorld.getRobotStartBeepers());
-	    assert(fWorld.checkEWWall(2, 2));
-	    assert(fWorld.checkEWWall(3, 2));
-	    assert(fWorld.checkNSWall(1, 1));
-	    assert(fWorld.checkNSWall(2, 1));
-	    assert(fWorld.checkNSWall(2, 2));
-	    assert(fWorld.checkNSWall(3, 1));
-	    assert(fWorld.checkNSWall(3, 2));
-	    assert(fWorld.checkNSWall(3, 3));
-	    assert(fWorld.checkNSWall(4, 1));
-	    assert(fWorld.checkNSWall(4, 2));
-	    assert(fWorld.checkNSWall(4, 3));
-	    assert(fWorld.checkNSWall(4, 4));
+	    assertTrue(fWorld.checkEWWall(2, 2));
+	    assertTrue(fWorld.checkEWWall(3, 2));
+	    assertTrue(fWorld.checkNSWall(1, 1));
+	    assertTrue(fWorld.checkNSWall(2, 1));
+	    assertTrue(fWorld.checkNSWall(2, 2));
+	    assertTrue(fWorld.checkNSWall(3, 1));
+	    assertTrue(fWorld.checkNSWall(3, 2));
+	    assertTrue(fWorld.checkNSWall(3, 3));
+	    assertTrue(fWorld.checkNSWall(4, 1));
+	    assertTrue(fWorld.checkNSWall(4, 2));
+	    assertTrue(fWorld.checkNSWall(4, 3));
+	    assertTrue(fWorld.checkNSWall(4, 4));
 	    sr.close();
 	} catch (WorldParserException e) {
 	    fail(e.toString());
@@ -227,9 +227,9 @@ public class WorldTest extends TestCase {
 	WorldParser parser = new WorldParser();
 	try {
 	    fWorld = parser.parse(sr);
-	    assert(fWorld instanceof World);
+	    assertTrue(fWorld instanceof World);
 	    try {
-		assert(fWorld.pickBeeper(3, 3));
+		assertTrue(fWorld.pickBeeper(3, 3));
 		fWorld.pickBeeper(3, 3);
 		fail("Expected KarelNoBeeperAtCornerException");
 	    } catch (KarelNoBeeperAtCornerException e) {
@@ -238,18 +238,18 @@ public class WorldTest extends TestCase {
 	    assertEquals(3, fWorld.getRobotStartStreet());
 	    assertEquals(1, fWorld.getRobotStartDirection());
 	    assertEquals(0, fWorld.getRobotStartBeepers());
-	    assert(fWorld.checkEWWall(2, 2));
-	    assert(fWorld.checkEWWall(3, 2));
-	    assert(fWorld.checkNSWall(1, 1));
-	    assert(fWorld.checkNSWall(2, 1));
-	    assert(fWorld.checkNSWall(2, 2));
-	    assert(fWorld.checkNSWall(3, 1));
-	    assert(fWorld.checkNSWall(3, 2));
-	    assert(fWorld.checkNSWall(3, 3));
-	    assert(fWorld.checkNSWall(4, 1));
-	    assert(fWorld.checkNSWall(4, 2));
-	    assert(fWorld.checkNSWall(4, 3));
-	    assert(fWorld.checkNSWall(4, 4));
+	    assertTrue(fWorld.checkEWWall(2, 2));
+	    assertTrue(fWorld.checkEWWall(3, 2));
+	    assertTrue(fWorld.checkNSWall(1, 1));
+	    assertTrue(fWorld.checkNSWall(2, 1));
+	    assertTrue(fWorld.checkNSWall(2, 2));
+	    assertTrue(fWorld.checkNSWall(3, 1));
+	    assertTrue(fWorld.checkNSWall(3, 2));
+	    assertTrue(fWorld.checkNSWall(3, 3));
+	    assertTrue(fWorld.checkNSWall(4, 1));
+	    assertTrue(fWorld.checkNSWall(4, 2));
+	    assertTrue(fWorld.checkNSWall(4, 3));
+	    assertTrue(fWorld.checkNSWall(4, 4));
 	    sr.close();
 	} catch (WorldParserException e) {
 	    fail(e.toString());
