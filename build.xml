@@ -117,7 +117,7 @@
       <fileset dir="."
          includes="bin/*, lib/*, src/**/*, doc/**/*, examples/*, share/*"/>
       <fileset dir="."
-         includes="build.xml, ChangeLog, THANKS"/>
+         includes="build.xml, LICENSE, ChangeLog, THANKS"/>
     </copy>
     <chmod perm="a+x">
       <fileset dir="${dist.bin}"/>
