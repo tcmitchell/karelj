@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="KarelJ" default="build">
 
-  <property name="VERSION" value="1.0"/>
+  <property name="VERSION" value="1.1"/>
 
   <!-- 
        ===================================================================
@@ -34,7 +34,8 @@
     <mkdir dir="${classes}"/>
     <javac srcdir="${src}"
 	   classpath="${lib}/junit.jar;${lib}/silk.jar" 
-	   destdir="${classes}"/>
+	   destdir="${classes}"
+	   deprecation="yes"/>
     <jar jarfile="${lib}/karelj.jar"
 	 basedir="${classes}"/>
   </target>
