@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="KarelJ" default="build">
 
-  <property name="VERSION" value="1.0rc1"/>
+  <property name="VERSION" value="1.0"/>
 
   <!-- 
        ===================================================================
