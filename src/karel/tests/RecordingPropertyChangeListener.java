@@ -25,23 +25,23 @@ import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 
 public class RecordingPropertyChangeListener implements PropertyChangeListener {
-	LinkedList events;
+    LinkedList events;
 
-	public RecordingPropertyChangeListener() {
-		events = new LinkedList();
-	}
+    public RecordingPropertyChangeListener() {
+        events = new LinkedList();
+    }
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		events.add(
-				new PropertyChangeEvent(evt.getSource(), evt.getPropertyName(), evt.getOldValue(), evt.getNewValue()));
-	}
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        events.add(
+                new PropertyChangeEvent(evt.getSource(), evt.getPropertyName(), evt.getOldValue(), evt.getNewValue()));
+    }
 
-	public void clear() {
-		events.clear();
-	}
+    public void clear() {
+        events.clear();
+    }
 
-	public PropertyChangeEvent getFirstEvent() {
-		return (PropertyChangeEvent) events.getFirst();
-	}
+    public PropertyChangeEvent getFirstEvent() {
+        return (PropertyChangeEvent) events.getFirst();
+    }
 }

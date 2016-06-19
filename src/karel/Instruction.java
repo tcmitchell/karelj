@@ -22,80 +22,80 @@ package karel;
 
 public class Instruction implements java.io.Serializable {
 
-	static final long serialVersionUID = -2239955774797876234L;
+    static final long serialVersionUID = -2239955774797876234L;
 
-	static final boolean DEBUG = false;
+    static final boolean DEBUG = false;
 
-	protected String description;
+    protected String description;
 
-	public Instruction(String desc) {
-		description = desc;
-	}
+    public Instruction(String desc) {
+        description = desc;
+    }
 
-	@Override
-	public String toString() {
-		return "#<Instruction " + description + ">";
-	}
+    @Override
+    public String toString() {
+        return "#<Instruction " + description + ">";
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Instruction) {
-			Instruction that = (Instruction) obj;
-			return (this.description.equals(that.description));
-		}
-		return false;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Instruction) {
+            Instruction that = (Instruction) obj;
+            return (this.description.equals(that.description));
+        }
+        return false;
+    }
 
-	// public boolean execute(Robot r) throws KarelException {
-	// if (DEBUG)
-	// System.out.println("Executing default implementation of "
-	// + description);
-	// return true;
-	// }
+    // public boolean execute(Robot r) throws KarelException {
+    // if (DEBUG)
+    // System.out.println("Executing default implementation of "
+    // + description);
+    // return true;
+    // }
 
-	public boolean execute(KarelVM vm) throws KarelException {
-		if (DEBUG) {
-			System.out.println("Executing default implementation of " + description);
-		}
-		return true;
-	}
+    public boolean execute(KarelVM vm) throws KarelException {
+        if (DEBUG) {
+            System.out.println("Executing default implementation of " + description);
+        }
+        return true;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public static Instruction RETURN = new Instruction("RETURN") {
-		@Override
-		public boolean execute(KarelVM vm) throws KarelException {
-			return true;
-		}
-	};
+    public static Instruction RETURN = new Instruction("RETURN") {
+        @Override
+        public boolean execute(KarelVM vm) throws KarelException {
+            return true;
+        }
+    };
 
-	public static Instruction BRANCH = new Instruction("BRANCH") {
-		@Override
-		public boolean execute(KarelVM vm) throws KarelException {
-			return vm.branch();
-		}
-	};
+    public static Instruction BRANCH = new Instruction("BRANCH") {
+        @Override
+        public boolean execute(KarelVM vm) throws KarelException {
+            return vm.branch();
+        }
+    };
 
-	public static Instruction CONDBRANCH = new Instruction("CONDBRANCH") {
-		@Override
-		public boolean execute(KarelVM vm) throws KarelException {
-			return vm.condbranch();
-		}
-	};
+    public static Instruction CONDBRANCH = new Instruction("CONDBRANCH") {
+        @Override
+        public boolean execute(KarelVM vm) throws KarelException {
+            return vm.condbranch();
+        }
+    };
 
-	public static Instruction ITERATE = new Instruction("ITERATE") {
-		@Override
-		public boolean execute(KarelVM vm) throws KarelException {
-			return vm.iterate();
-		}
-	};
+    public static Instruction ITERATE = new Instruction("ITERATE") {
+        @Override
+        public boolean execute(KarelVM vm) throws KarelException {
+            return vm.iterate();
+        }
+    };
 
-	public static Instruction CALL = new Instruction("CALL") {
-		@Override
-		public boolean execute(KarelVM vm) throws KarelException {
-			return vm.callproc();
-		}
-	};
+    public static Instruction CALL = new Instruction("CALL") {
+        @Override
+        public boolean execute(KarelVM vm) throws KarelException {
+            return vm.callproc();
+        }
+    };
 }

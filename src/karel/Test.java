@@ -22,135 +22,135 @@ package karel;
 
 public class Test extends Builtin {
 
-	public Test(String s) {
-		super(s);
-	}
+    public Test(String s) {
+        super(s);
+    }
 
-	@Override
-	public String toString() {
-		return "#<Test " + description + ">";
-	}
+    @Override
+    public String toString() {
+        return "#<Test " + description + ">";
+    }
 
-	@Override
-	public String getToken() {
-		return getDescription();
-	}
+    @Override
+    public String getToken() {
+        return getDescription();
+    }
 
-	@Override
-	public TokenType getId() {
-		return TokenType.TEST;
-	}
+    @Override
+    public TokenType getId() {
+        return TokenType.TEST;
+    }
 
-	static {
-		new Test("any-beepers-in-beeper-bag") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getBeepers() > 0);
-			}
-		};
-		new Test("facing-east") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getDirection() == Robot.EAST);
-			}
-		};
-		new Test("facing-north") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getDirection() == Robot.NORTH);
-			}
-		};
-		new Test("facing-south") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getDirection() == Robot.SOUTH);
-			}
-		};
-		new Test("facing-west") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getDirection() == Robot.WEST);
-			}
-		};
-		new Test("front-is-blocked") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				Robot r = vm.getRobot();
-				return r.isDirBlocked(r.getDirection());
-			}
-		};
-		new Test("front-is-clear") {
-			@Override
-			public boolean execute(KarelVM vm) throws KarelException {
-				Robot r = vm.getRobot();
-				return (!r.isDirBlocked(r.getDirection()));
-			}
-		};
-		new Test("left-is-blocked") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return vm.getRobot().leftIsBlocked();
-			}
-		};
-		new Test("left-is-clear") {
-			@Override
-			public boolean execute(KarelVM vm) throws KarelException {
-				return (!vm.getRobot().leftIsBlocked());
-			}
-		};
-		new Test("next-to-a-beeper") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().nextToABeeper());
-			}
-		};
-		new Test("no-beepers-in-beeper-bag") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getBeepers() == 0);
-			}
-		};
-		new Test("not-facing-east") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getDirection() != Robot.EAST);
-			}
-		};
-		new Test("not-facing-north") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getDirection() != Robot.NORTH);
-			}
-		};
-		new Test("not-facing-south") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getDirection() != Robot.SOUTH);
-			}
-		};
-		new Test("not-facing-west") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (vm.getRobot().getDirection() != Robot.WEST);
-			}
-		};
-		new Test("not-next-to-a-beeper") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (!vm.getRobot().nextToABeeper());
-			}
-		};
-		new Test("right-is-blocked") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return vm.getRobot().rightIsBlocked();
-			}
-		};
-		new Test("right-is-clear") {
-			@Override
-			public boolean execute(KarelVM vm) {
-				return (!vm.getRobot().rightIsBlocked());
-			}
-		};
-	};
+    static {
+        new Test("any-beepers-in-beeper-bag") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getBeepers() > 0);
+            }
+        };
+        new Test("facing-east") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getDirection() == Robot.EAST);
+            }
+        };
+        new Test("facing-north") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getDirection() == Robot.NORTH);
+            }
+        };
+        new Test("facing-south") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getDirection() == Robot.SOUTH);
+            }
+        };
+        new Test("facing-west") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getDirection() == Robot.WEST);
+            }
+        };
+        new Test("front-is-blocked") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                Robot r = vm.getRobot();
+                return r.isDirBlocked(r.getDirection());
+            }
+        };
+        new Test("front-is-clear") {
+            @Override
+            public boolean execute(KarelVM vm) throws KarelException {
+                Robot r = vm.getRobot();
+                return (!r.isDirBlocked(r.getDirection()));
+            }
+        };
+        new Test("left-is-blocked") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return vm.getRobot().leftIsBlocked();
+            }
+        };
+        new Test("left-is-clear") {
+            @Override
+            public boolean execute(KarelVM vm) throws KarelException {
+                return (!vm.getRobot().leftIsBlocked());
+            }
+        };
+        new Test("next-to-a-beeper") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().nextToABeeper());
+            }
+        };
+        new Test("no-beepers-in-beeper-bag") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getBeepers() == 0);
+            }
+        };
+        new Test("not-facing-east") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getDirection() != Robot.EAST);
+            }
+        };
+        new Test("not-facing-north") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getDirection() != Robot.NORTH);
+            }
+        };
+        new Test("not-facing-south") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getDirection() != Robot.SOUTH);
+            }
+        };
+        new Test("not-facing-west") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (vm.getRobot().getDirection() != Robot.WEST);
+            }
+        };
+        new Test("not-next-to-a-beeper") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (!vm.getRobot().nextToABeeper());
+            }
+        };
+        new Test("right-is-blocked") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return vm.getRobot().rightIsBlocked();
+            }
+        };
+        new Test("right-is-clear") {
+            @Override
+            public boolean execute(KarelVM vm) {
+                return (!vm.getRobot().rightIsBlocked());
+            }
+        };
+    };
 }

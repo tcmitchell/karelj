@@ -29,40 +29,40 @@ import java.io.ObjectInputStream;
 
 public class Tracer implements PropertyChangeListener {
 
-	public static void main(String args[])
-			throws IOException, ClassNotFoundException, WorldParserException, KarelException {
-		System.out.println("Hello, World!");
+    public static void main(String args[])
+            throws IOException, ClassNotFoundException, WorldParserException, KarelException {
+        System.out.println("Hello, World!");
 
-		Robot r = new Robot();
-		Program p = null;
-		World w = null;
+        Robot r = new Robot();
+        Program p = null;
+        World w = null;
 
-		FileInputStream fis = new FileInputStream(args[0]);
-		ObjectInputStream progIn = new ObjectInputStream(fis);
-		p = (Program) progIn.readObject();
-		progIn.close();
-		p.print();
+        FileInputStream fis = new FileInputStream(args[0]);
+        ObjectInputStream progIn = new ObjectInputStream(fis);
+        p = (Program) progIn.readObject();
+        progIn.close();
+        p.print();
 
-		FileReader fr = new FileReader(args[1]);
-		WorldParser parser = new WorldParser();
-		w = parser.parse(fr);
+        FileReader fr = new FileReader(args[1]);
+        WorldParser parser = new WorldParser();
+        w = parser.parse(fr);
 
-		r.addPropertyChangeListener(new Tracer());
-		r.setWorld(w);
-		r.execute(p);
-	}
+        r.addPropertyChangeListener(new Tracer());
+        r.setWorld(w);
+        r.execute(p);
+    }
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		String prop = evt.getPropertyName();
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String prop = evt.getPropertyName();
 
-		if (Robot.DirectionProperty.equals(prop)) {
-			int oldVal = ((Integer) evt.getOldValue()).intValue();
-			int newVal = ((Integer) evt.getNewValue()).intValue();
-			System.out.println(prop + " changed from " + Robot.directionToString(oldVal) + " to "
-					+ Robot.directionToString(newVal));
-		} else {
-			System.out.println(prop + " changed from " + evt.getOldValue() + " to " + evt.getNewValue());
-		}
-	}
+        if (Robot.DirectionProperty.equals(prop)) {
+            int oldVal = ((Integer) evt.getOldValue()).intValue();
+            int newVal = ((Integer) evt.getNewValue()).intValue();
+            System.out.println(prop + " changed from " + Robot.directionToString(oldVal) + " to "
+                    + Robot.directionToString(newVal));
+        } else {
+            System.out.println(prop + " changed from " + evt.getOldValue() + " to " + evt.getNewValue());
+        }
+    }
 }

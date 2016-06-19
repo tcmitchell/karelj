@@ -27,53 +27,53 @@ package karel;
  */
 public class Token {
 
-	protected String fSVal;
+    protected String fSVal;
 
-	protected int fIVal;
+    protected int fIVal;
 
-	protected TokenType fType;
+    protected TokenType fType;
 
-	public Token() {
-	}
+    public Token() {
+    }
 
-	public Token(TokenType t, String s) {
-		fType = t;
-		fSVal = s;
-	}
+    public Token(TokenType t, String s) {
+        fType = t;
+        fSVal = s;
+    }
 
-	public Token(TokenType t, int i) {
-		fType = t;
-		fIVal = i;
-	}
+    public Token(TokenType t, int i) {
+        fType = t;
+        fIVal = i;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Token) {
-			Token that = (Token) obj;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Token) {
+            Token that = (Token) obj;
 
-			// Be careful. Either the SVals are both null, or
-			// they are equal. Can't run .equals() on null...
-			return (this.fType.equals(that.fType)
-					&& ((this.fSVal == null && that.fSVal == null) || this.fSVal.equals(that.fSVal))
-					&& this.fIVal == that.fIVal);
-		}
-		return false;
-	}
+            // Be careful. Either the SVals are both null, or
+            // they are equal. Can't run .equals() on null...
+            return (this.fType.equals(that.fType)
+                    && ((this.fSVal == null && that.fSVal == null) || this.fSVal.equals(that.fSVal))
+                    && this.fIVal == that.fIVal);
+        }
+        return false;
+    }
 
-	@Override
-	public String toString() {
-		return "#<Token type: " + getType() + "; sval: " + getSVal() + "; ival: " + getIVal() + ">";
-	}
+    @Override
+    public String toString() {
+        return "#<Token type: " + getType() + "; sval: " + getSVal() + "; ival: " + getIVal() + ">";
+    }
 
-	public String getSVal() {
-		return fSVal;
-	}
+    public String getSVal() {
+        return fSVal;
+    }
 
-	public int getIVal() {
-		return fIVal;
-	}
+    public int getIVal() {
+        return fIVal;
+    }
 
-	public TokenType getType() {
-		return fType;
-	}
+    public TokenType getType() {
+        return fType;
+    }
 }

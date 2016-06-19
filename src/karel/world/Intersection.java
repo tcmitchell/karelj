@@ -22,12 +22,12 @@ package karel.world;
 
 public class Intersection {
 
-	public boolean wallNorth, wallEast;
+    public boolean wallNorth, wallEast;
 
-	public int beepers;
+    public int beepers;
 
-	public Intersection() {
-		wallNorth = wallEast = false;
-		beepers = 0;
-	}
+    public Intersection() {
+        wallNorth = wallEast = false;
+        beepers = 0;
+    }
 }

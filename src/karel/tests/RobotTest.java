@@ -35,105 +35,105 @@ import karel.World;
  */
 public class RobotTest extends TestCase {
 
-	Robot fRobot;
+    Robot fRobot;
 
-	public RobotTest(String name) {
-		super(name);
-	}
+    public RobotTest(String name) {
+        super(name);
+    }
 
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(suite());
-	}
+    public static void main(String[] args) {
+        junit.textui.TestRunner.run(suite());
+    }
 
-	public static Test suite() {
-		return new TestSuite(RobotTest.class);
-	}
+    public static Test suite() {
+        return new TestSuite(RobotTest.class);
+    }
 
-	@Override
-	protected void setUp() {
-		fRobot = new Robot();
-	}
+    @Override
+    protected void setUp() {
+        fRobot = new Robot();
+    }
 
-	public void testLocation() {
-		int ave = 3;
-		int st = 4;
-		fRobot.setAvenue(ave);
-		fRobot.setStreet(st);
-		assertEquals(ave, fRobot.getAvenue());
-		assertEquals(st, fRobot.getStreet());
-	}
+    public void testLocation() {
+        int ave = 3;
+        int st = 4;
+        fRobot.setAvenue(ave);
+        fRobot.setStreet(st);
+        assertEquals(ave, fRobot.getAvenue());
+        assertEquals(st, fRobot.getStreet());
+    }
 
-	public void testDirection() {
-		fRobot.setDirection(Robot.NORTH);
-		assertEquals(Robot.NORTH, fRobot.getDirection());
-		fRobot.turnleft();
-		assertEquals(Robot.WEST, fRobot.getDirection());
-		fRobot.turnleft();
-		assertEquals(Robot.SOUTH, fRobot.getDirection());
-		fRobot.turnleft();
-		assertEquals(Robot.EAST, fRobot.getDirection());
-		fRobot.turnleft();
-		assertEquals(Robot.NORTH, fRobot.getDirection());
-	}
+    public void testDirection() {
+        fRobot.setDirection(Robot.NORTH);
+        assertEquals(Robot.NORTH, fRobot.getDirection());
+        fRobot.turnleft();
+        assertEquals(Robot.WEST, fRobot.getDirection());
+        fRobot.turnleft();
+        assertEquals(Robot.SOUTH, fRobot.getDirection());
+        fRobot.turnleft();
+        assertEquals(Robot.EAST, fRobot.getDirection());
+        fRobot.turnleft();
+        assertEquals(Robot.NORTH, fRobot.getDirection());
+    }
 
-	public void testLocationProperty() {
-		RecordingPropertyChangeListener listener = new RecordingPropertyChangeListener();
-		fRobot.addPropertyChangeListener(listener);
-		fRobot.setAvenue(3);
-		PropertyChangeEvent evt = listener.getFirstEvent();
-		assertNotNull(evt);
-		assertEquals(fRobot, evt.getSource());
+    public void testLocationProperty() {
+        RecordingPropertyChangeListener listener = new RecordingPropertyChangeListener();
+        fRobot.addPropertyChangeListener(listener);
+        fRobot.setAvenue(3);
+        PropertyChangeEvent evt = listener.getFirstEvent();
+        assertNotNull(evt);
+        assertEquals(fRobot, evt.getSource());
 
-		assertEquals(Robot.LocationProperty, evt.getPropertyName());
+        assertEquals(Robot.LocationProperty, evt.getPropertyName());
 
-		KPoint oldVal = new KPoint(1, 1);
-		assertEquals(oldVal, evt.getOldValue());
+        KPoint oldVal = new KPoint(1, 1);
+        assertEquals(oldVal, evt.getOldValue());
 
-		KPoint newVal = new KPoint(3, 1);
-		assertEquals(newVal, evt.getNewValue());
-	}
+        KPoint newVal = new KPoint(3, 1);
+        assertEquals(newVal, evt.getNewValue());
+    }
 
-	public void testDirectionProperty() {
-		RecordingPropertyChangeListener listener = new RecordingPropertyChangeListener();
-		fRobot.addPropertyChangeListener(listener);
-		fRobot.setDirection(Robot.EAST);
-		PropertyChangeEvent evt = listener.getFirstEvent();
-		assertNotNull(evt);
-		assertEquals(fRobot, evt.getSource());
+    public void testDirectionProperty() {
+        RecordingPropertyChangeListener listener = new RecordingPropertyChangeListener();
+        fRobot.addPropertyChangeListener(listener);
+        fRobot.setDirection(Robot.EAST);
+        PropertyChangeEvent evt = listener.getFirstEvent();
+        assertNotNull(evt);
+        assertEquals(fRobot, evt.getSource());
 
-		assertEquals(Robot.DirectionProperty, evt.getPropertyName());
+        assertEquals(Robot.DirectionProperty, evt.getPropertyName());
 
-		Integer oldVal = new Integer(Robot.NORTH);
-		assertEquals(oldVal, evt.getOldValue());
+        Integer oldVal = new Integer(Robot.NORTH);
+        assertEquals(oldVal, evt.getOldValue());
 
-		Integer newVal = new Integer(Robot.EAST);
-		assertEquals(newVal, evt.getNewValue());
-	}
+        Integer newVal = new Integer(Robot.EAST);
+        assertEquals(newVal, evt.getNewValue());
+    }
 
-	public void testBeepersProperty() {
-		RecordingPropertyChangeListener listener = new RecordingPropertyChangeListener();
-		World world = new World(1, 1);
-		world.putBeeper(1, 1);
-		fRobot.setWorld(world);
-		fRobot.setAvenue(1);
-		fRobot.setStreet(1);
+    public void testBeepersProperty() {
+        RecordingPropertyChangeListener listener = new RecordingPropertyChangeListener();
+        World world = new World(1, 1);
+        world.putBeeper(1, 1);
+        fRobot.setWorld(world);
+        fRobot.setAvenue(1);
+        fRobot.setStreet(1);
 
-		fRobot.addPropertyChangeListener(listener);
-		try {
-			fRobot.pickBeeper();
-		} catch (KarelNoBeeperAtCornerException e) {
-			fail("pickBeeper failed");
-		}
-		PropertyChangeEvent evt = listener.getFirstEvent();
-		assertNotNull(evt);
-		assertEquals(fRobot, evt.getSource());
+        fRobot.addPropertyChangeListener(listener);
+        try {
+            fRobot.pickBeeper();
+        } catch (KarelNoBeeperAtCornerException e) {
+            fail("pickBeeper failed");
+        }
+        PropertyChangeEvent evt = listener.getFirstEvent();
+        assertNotNull(evt);
+        assertEquals(fRobot, evt.getSource());
 
-		assertEquals(Robot.BeepersProperty, evt.getPropertyName());
+        assertEquals(Robot.BeepersProperty, evt.getPropertyName());
 
-		Integer oldVal = new Integer(0);
-		assertEquals(oldVal, evt.getOldValue());
+        Integer oldVal = new Integer(0);
+        assertEquals(oldVal, evt.getOldValue());
 
-		Integer newVal = new Integer(1);
-		assertEquals(newVal, evt.getNewValue());
-	}
+        Integer newVal = new Integer(1);
+        assertEquals(newVal, evt.getNewValue());
+    }
 }

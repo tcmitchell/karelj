@@ -24,62 +24,62 @@ import java.util.Hashtable;
 
 class Keyword {
 
-	public static int AS = 301;
-	public static int BEGIN = 302;
-	public static int BEGEXEC = 303;
-	public static int BEGPROG = 304;
-	public static int DEFINST = 305;
-	public static int DO = 306;
-	public static int ELSE = 307;
-	public static int END = 308;
-	public static int ENDEXEC = 309;
-	public static int ENDPROG = 310;
-	public static int IF = 311;
-	public static int ITERATE = 312;
-	public static int THEN = 313;
-	public static int TIMES = 314;
-	public static int WHILE = 315;
+    public static int AS = 301;
+    public static int BEGIN = 302;
+    public static int BEGEXEC = 303;
+    public static int BEGPROG = 304;
+    public static int DEFINST = 305;
+    public static int DO = 306;
+    public static int ELSE = 307;
+    public static int END = 308;
+    public static int ENDEXEC = 309;
+    public static int ENDPROG = 310;
+    public static int IF = 311;
+    public static int ITERATE = 312;
+    public static int THEN = 313;
+    public static int TIMES = 314;
+    public static int WHILE = 315;
 
-	TokenType fType;
+    TokenType fType;
 
-	String token;
+    String token;
 
-	public Keyword(String s, TokenType t) {
-		fType = t;
-		token = s.toLowerCase().intern();
-		keymap.put(token, this);
-	}
+    public Keyword(String s, TokenType t) {
+        fType = t;
+        token = s.toLowerCase().intern();
+        keymap.put(token, this);
+    }
 
-	public String getToken() {
-		return token;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	public TokenType getType() {
-		return fType;
-	}
+    public TokenType getType() {
+        return fType;
+    }
 
-	static Hashtable keymap;
+    static Hashtable keymap;
 
-	static {
-		keymap = new Hashtable();
-		new Keyword("AS", TokenType.AS);
-		new Keyword("BEGIN", TokenType.BEGIN);
-		new Keyword("BEGINNING-OF-EXECUTION", TokenType.BEGEXEC);
-		new Keyword("BEGINNING-OF-PROGRAM", TokenType.BEGPROG);
-		new Keyword("DEFINE-NEW-INSTRUCTION", TokenType.DEFINST);
-		new Keyword("DO", TokenType.DO);
-		new Keyword("ELSE", TokenType.ELSE);
-		new Keyword("END", TokenType.END);
-		new Keyword("END-OF-EXECUTION", TokenType.ENDEXEC);
-		new Keyword("END-OF-PROGRAM", TokenType.ENDPROG);
-		new Keyword("IF", TokenType.IF);
-		new Keyword("ITERATE", TokenType.ITERATE);
-		new Keyword("THEN", TokenType.THEN);
-		new Keyword("TIMES", TokenType.TIMES);
-		new Keyword("WHILE", TokenType.WHILE);
-	};
+    static {
+        keymap = new Hashtable();
+        new Keyword("AS", TokenType.AS);
+        new Keyword("BEGIN", TokenType.BEGIN);
+        new Keyword("BEGINNING-OF-EXECUTION", TokenType.BEGEXEC);
+        new Keyword("BEGINNING-OF-PROGRAM", TokenType.BEGPROG);
+        new Keyword("DEFINE-NEW-INSTRUCTION", TokenType.DEFINST);
+        new Keyword("DO", TokenType.DO);
+        new Keyword("ELSE", TokenType.ELSE);
+        new Keyword("END", TokenType.END);
+        new Keyword("END-OF-EXECUTION", TokenType.ENDEXEC);
+        new Keyword("END-OF-PROGRAM", TokenType.ENDPROG);
+        new Keyword("IF", TokenType.IF);
+        new Keyword("ITERATE", TokenType.ITERATE);
+        new Keyword("THEN", TokenType.THEN);
+        new Keyword("TIMES", TokenType.TIMES);
+        new Keyword("WHILE", TokenType.WHILE);
+    };
 
-	public static Keyword lookup(String s) {
-		return (Keyword) keymap.get(s.intern());
-	}
+    public static Keyword lookup(String s) {
+        return (Keyword) keymap.get(s.intern());
+    }
 }

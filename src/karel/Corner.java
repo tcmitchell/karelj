@@ -22,50 +22,50 @@ package karel;
 
 public class Corner implements java.io.Serializable {
 
-	static final long serialVersionUID = 3510713888408106866L;
+    static final long serialVersionUID = 3510713888408106866L;
 
-	int avenue;
-	int street;
-	int numBeepers;
-	boolean wallToNorth;
-	boolean wallToEast;
+    int avenue;
+    int street;
+    int numBeepers;
+    boolean wallToNorth;
+    boolean wallToEast;
 
-	public Corner(int a, int s) {
-		avenue = a;
-		street = s;
-	}
+    public Corner(int a, int s) {
+        avenue = a;
+        street = s;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Corner) {
-			Corner that = (Corner) obj;
-			return (this.avenue == that.avenue && this.street == that.street && this.numBeepers == that.numBeepers
-					&& this.wallToNorth == that.wallToNorth && this.wallToEast == that.wallToEast);
-		}
-		return false;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Corner) {
+            Corner that = (Corner) obj;
+            return (this.avenue == that.avenue && this.street == that.street && this.numBeepers == that.numBeepers
+                    && this.wallToNorth == that.wallToNorth && this.wallToEast == that.wallToEast);
+        }
+        return false;
+    }
 
-	public void setBeepers(int n) {
-		numBeepers = n;
-	}
+    public void setBeepers(int n) {
+        numBeepers = n;
+    }
 
-	public int getBeepers() {
-		return numBeepers;
-	}
+    public int getBeepers() {
+        return numBeepers;
+    }
 
-	public boolean hasNorthWall() {
-		return wallToNorth;
-	}
+    public boolean hasNorthWall() {
+        return wallToNorth;
+    }
 
-	public void setNorthWall(boolean wall) {
-		wallToNorth = wall;
-	}
+    public void setNorthWall(boolean wall) {
+        wallToNorth = wall;
+    }
 
-	public boolean hasEastWall() {
-		return wallToEast;
-	}
+    public boolean hasEastWall() {
+        return wallToEast;
+    }
 
-	public void setEastWall(boolean wall) {
-		wallToEast = wall;
-	}
+    public void setEastWall(boolean wall) {
+        wallToEast = wall;
+    }
 }

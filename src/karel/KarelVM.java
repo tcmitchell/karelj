@@ -22,149 +22,149 @@ package karel;
 
 public class KarelVM extends Thread {
 
-	static final boolean DEBUG = false;
+    static final boolean DEBUG = false;
 
-	Robot fRobot;
+    Robot fRobot;
 
-	Program fProgram;
+    Program fProgram;
 
-	public KarelVM(Robot r, Program p) {
-		fRobot = r;
-		fProgram = p;
-	}
+    public KarelVM(Robot r, Program p) {
+        fRobot = r;
+        fProgram = p;
+    }
 
-	public Robot getRobot() {
-		return fRobot;
-	}
+    public Robot getRobot() {
+        return fRobot;
+    }
 
-	@Override
-	public void run() {
-		try {
-			execute(fProgram);
-		} catch (KarelException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-	}
+    @Override
+    public void run() {
+        try {
+            execute(fProgram);
+        } catch (KarelException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
-	/*-----------------------------------------------------------------*/
-	/* Program Execution */
-	/*-----------------------------------------------------------------*/
+    /*-----------------------------------------------------------------*/
+    /* Program Execution */
+    /*-----------------------------------------------------------------*/
 
-	private boolean status;
-	private int pc;
-	private Program program;
+    private boolean status;
+    private int pc;
+    private Program program;
 
-	private int getProgramCounter() {
-		return pc;
-	}
+    private int getProgramCounter() {
+        return pc;
+    }
 
-	private void setProgramCounter(int newPC) {
-		pc = newPC;
-	}
+    private void setProgramCounter(int newPC) {
+        pc = newPC;
+    }
 
-	private Object getProgramElement(int loc) {
-		return program.getElementAt(loc);
-	}
+    private Object getProgramElement(int loc) {
+        return program.getElementAt(loc);
+    }
 
-	private boolean execute(Program p, int startPC) throws KarelException {
-		int tmpPC = pc;
-		Program tmpProg = program;
+    private boolean execute(Program p, int startPC) throws KarelException {
+        int tmpPC = pc;
+        Program tmpProg = program;
 
-		pc = startPC;
-		program = p;
-		Instruction i = program.getInstructionAt(pc);
+        pc = startPC;
+        program = p;
+        Instruction i = program.getInstructionAt(pc);
 
-		while (!Instruction.RETURN.equals(i)) {
-			status = i.execute(this);
-			pc += 1;
-			i = program.getInstructionAt(pc);
-		}
+        while (!Instruction.RETURN.equals(i)) {
+            status = i.execute(this);
+            pc += 1;
+            i = program.getInstructionAt(pc);
+        }
 
-		pc = tmpPC;
-		program = tmpProg;
+        pc = tmpPC;
+        program = tmpProg;
 
-		return true;
-	}
+        return true;
+    }
 
-	public boolean branch() throws KarelException {
-		Object o = getProgramElement(getProgramCounter() + 1);
-		int jump = ((Integer) o).intValue();
-		if (DEBUG) {
-			System.out.println("Executing BRANCH instruction: " + jump);
-		}
+    public boolean branch() throws KarelException {
+        Object o = getProgramElement(getProgramCounter() + 1);
+        int jump = ((Integer) o).intValue();
+        if (DEBUG) {
+            System.out.println("Executing BRANCH instruction: " + jump);
+        }
 
-		// the PC gets incremented by the engine
-		// after this instruction runs, so
-		// decrement here to get the right jump
-		setProgramCounter(jump - 1);
-		return true;
-	}
+        // the PC gets incremented by the engine
+        // after this instruction runs, so
+        // decrement here to get the right jump
+        setProgramCounter(jump - 1);
+        return true;
+    }
 
-	public boolean condbranch() throws KarelException {
-		if (!status) {
-			Object o = getProgramElement(getProgramCounter() + 1);
-			int jump = ((Integer) o).intValue();
-			if (DEBUG) {
-				System.out.println("Executing CONDBRANCH: " + jump);
-			}
-			// the PC gets incremented by the engine
-			// after this instruction runs, so
-			// decrement here to get the right jump
-			setProgramCounter(jump - 1);
-		} else {
-			if (DEBUG) {
-				System.out.println("Executing CONDBRANCH: noop");
-			}
+    public boolean condbranch() throws KarelException {
+        if (!status) {
+            Object o = getProgramElement(getProgramCounter() + 1);
+            int jump = ((Integer) o).intValue();
+            if (DEBUG) {
+                System.out.println("Executing CONDBRANCH: " + jump);
+            }
+            // the PC gets incremented by the engine
+            // after this instruction runs, so
+            // decrement here to get the right jump
+            setProgramCounter(jump - 1);
+        } else {
+            if (DEBUG) {
+                System.out.println("Executing CONDBRANCH: noop");
+            }
 
-			// Jump past the jump in the instruction set.
-			setProgramCounter(getProgramCounter() + 1);
-		}
-		return true;
-	}
+            // Jump past the jump in the instruction set.
+            setProgramCounter(getProgramCounter() + 1);
+        }
+        return true;
+    }
 
-	public boolean iterate() throws KarelException {
-		int limit, jump, loopbody;
+    public boolean iterate() throws KarelException {
+        int limit, jump, loopbody;
 
-		Object o = getProgramElement(getProgramCounter() + 1);
-		limit = ((Integer) o).intValue();
+        Object o = getProgramElement(getProgramCounter() + 1);
+        limit = ((Integer) o).intValue();
 
-		o = getProgramElement(getProgramCounter() + 2);
-		jump = ((Integer) o).intValue();
+        o = getProgramElement(getProgramCounter() + 2);
+        jump = ((Integer) o).intValue();
 
-		loopbody = getProgramCounter() + 3;
+        loopbody = getProgramCounter() + 3;
 
-		if (DEBUG) {
-			System.out.println("Executing ITERATE: " + limit);
-		}
+        if (DEBUG) {
+            System.out.println("Executing ITERATE: " + limit);
+        }
 
-		for (int k = 0; k < limit; k++) {
-			execute(program, loopbody);
-		}
+        for (int k = 0; k < limit; k++) {
+            execute(program, loopbody);
+        }
 
-		if (DEBUG) {
-			System.out.println("Executing ITERATE BRANCH: " + jump);
-		}
+        if (DEBUG) {
+            System.out.println("Executing ITERATE BRANCH: " + jump);
+        }
 
-		// the PC gets incremented by the engine
-		// after this instruction runs, so
-		// decrement here to get the right jump
-		setProgramCounter(jump - 1);
-		return true;
+        // the PC gets incremented by the engine
+        // after this instruction runs, so
+        // decrement here to get the right jump
+        setProgramCounter(jump - 1);
+        return true;
 
-	}
+    }
 
-	public boolean callproc() throws KarelException {
-		Object o = getProgramElement(getProgramCounter() + 1);
-		int subroutine = ((Integer) o).intValue();
-		execute(program, subroutine);
+    public boolean callproc() throws KarelException {
+        Object o = getProgramElement(getProgramCounter() + 1);
+        int subroutine = ((Integer) o).intValue();
+        execute(program, subroutine);
 
-		setProgramCounter(getProgramCounter() + 1);
-		return true;
-	}
+        setProgramCounter(getProgramCounter() + 1);
+        return true;
+    }
 
-	public boolean execute(Program p) throws KarelException {
-		return execute(p, p.getStartAddr());
-	}
+    public boolean execute(Program p) throws KarelException {
+        return execute(p, p.getStartAddr());
+    }
 
 }

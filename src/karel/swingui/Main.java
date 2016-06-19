@@ -26,42 +26,42 @@ import java.io.File;
 
 public class Main {
 
-	public static void main(String args[]) {
-		File worldFile = null;
-		File progFile = null;
+    public static void main(String args[]) {
+        File worldFile = null;
+        File progFile = null;
 
-		int i = 0;
-		while (i < args.length) {
-			if (args[i].equals("-w")) {
-				worldFile = new File(args[++i]);
-				i++;
-			} else if (args[i].equals("-p")) {
-				progFile = new File(args[++i]);
-				i++;
-			} else {
-				System.out.println("usage: Main [-w world] [-p program]");
-				System.exit(1);
-			}
-		}
+        int i = 0;
+        while (i < args.length) {
+            if (args[i].equals("-w")) {
+                worldFile = new File(args[++i]);
+                i++;
+            } else if (args[i].equals("-p")) {
+                progFile = new File(args[++i]);
+                i++;
+            } else {
+                System.out.println("usage: Main [-w world] [-p program]");
+                System.exit(1);
+            }
+        }
 
-		KarelFrame frame = new KarelFrame("karel");
+        KarelFrame frame = new KarelFrame("karel");
 
-		// When the user clicks the close window button on the frame,
-		// we need to shut down.
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent evt) {
-				System.exit(0);
-			}
-		});
+        // When the user clicks the close window button on the frame,
+        // we need to shut down.
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent evt) {
+                System.exit(0);
+            }
+        });
 
-		frame.setSize(300, 300);
-		frame.show();
-		if (worldFile != null) {
-			frame.loadWorld(worldFile);
-		}
-		if (progFile != null) {
-			frame.loadProgram(progFile);
-		}
-	}
+        frame.setSize(300, 300);
+        frame.show();
+        if (worldFile != null) {
+            frame.loadWorld(worldFile);
+        }
+        if (progFile != null) {
+            frame.loadProgram(progFile);
+        }
+    }
 }

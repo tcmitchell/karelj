@@ -34,62 +34,62 @@ import karel.TokenType;
  */
 public class LexerTest extends TestCase {
 
-	public LexerTest(String name) {
-		super(name);
-	}
+    public LexerTest(String name) {
+        super(name);
+    }
 
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(suite());
-	}
+    public static void main(String[] args) {
+        junit.textui.TestRunner.run(suite());
+    }
 
-	public static Test suite() {
-		return new TestSuite(LexerTest.class);
-	}
+    public static Test suite() {
+        return new TestSuite(LexerTest.class);
+    }
 
-	public void validateLexer(String program, Token tokens[]) {
-		StringReader input = new StringReader(program);
+    public void validateLexer(String program, Token tokens[]) {
+        StringReader input = new StringReader(program);
 
-		int nTokens = tokens.length;
+        int nTokens = tokens.length;
 
-		try {
-			Lexer lex = new Lexer(input);
+        try {
+            Lexer lex = new Lexer(input);
 
-			for (int i = 0; i < nTokens; i++) {
-				assertEquals(tokens[i], lex.nextToken());
-			}
+            for (int i = 0; i < nTokens; i++) {
+                assertEquals(tokens[i], lex.nextToken());
+            }
 
-		} catch (java.io.IOException e) {
-			fail("Caught IOException " + e.toString());
-		}
-	}
+        } catch (java.io.IOException e) {
+            fail("Caught IOException " + e.toString());
+        }
+    }
 
-	public void testWords() {
-		String program = "tom dick harry";
-		Token tokens[] = { new Token(TokenType.NAME, "tom"), new Token(TokenType.NAME, "dick"),
-				new Token(TokenType.NAME, "harry") };
-		validateLexer(program, tokens);
-	}
+    public void testWords() {
+        String program = "tom dick harry";
+        Token tokens[] = { new Token(TokenType.NAME, "tom"), new Token(TokenType.NAME, "dick"),
+                new Token(TokenType.NAME, "harry") };
+        validateLexer(program, tokens);
+    }
 
-	public void testNumbers() {
-		String program = "3 17 383";
-		Token tokens[] = { new Token(TokenType.NUMBER, 3), new Token(TokenType.NUMBER, 17),
-				new Token(TokenType.NUMBER, 383), new Token(TokenType.EOF, "") };
-		validateLexer(program, tokens);
-	}
+    public void testNumbers() {
+        String program = "3 17 383";
+        Token tokens[] = { new Token(TokenType.NUMBER, 3), new Token(TokenType.NUMBER, 17),
+                new Token(TokenType.NUMBER, 383), new Token(TokenType.EOF, "") };
+        validateLexer(program, tokens);
+    }
 
-	public void testWordsAndNumbers() {
-		String program = "tom 2 dick 45 harry 83";
-		Token tokens[] = { new Token(TokenType.NAME, "tom"), new Token(TokenType.NUMBER, 2),
-				new Token(TokenType.NAME, "dick"), new Token(TokenType.NUMBER, 45), new Token(TokenType.NAME, "harry"),
-				new Token(TokenType.NUMBER, 83), new Token(TokenType.EOF, "") };
-		validateLexer(program, tokens);
-	}
+    public void testWordsAndNumbers() {
+        String program = "tom 2 dick 45 harry 83";
+        Token tokens[] = { new Token(TokenType.NAME, "tom"), new Token(TokenType.NUMBER, 2),
+                new Token(TokenType.NAME, "dick"), new Token(TokenType.NUMBER, 45), new Token(TokenType.NAME, "harry"),
+                new Token(TokenType.NUMBER, 83), new Token(TokenType.EOF, "") };
+        validateLexer(program, tokens);
+    }
 
-	public void testComments() {
-		String program = "/* this is a comment */\nBEGINNING-OF-PROGRAM\n"
-				+ "/* another comment */\nEND-OF-PROGRAM\n/* a third comment */";
-		Token tokens[] = { new Token(TokenType.BEGPROG, "beginning-of-program"),
-				new Token(TokenType.ENDPROG, "end-of-program"), new Token(TokenType.EOF, "") };
-		validateLexer(program, tokens);
-	}
+    public void testComments() {
+        String program = "/* this is a comment */\nBEGINNING-OF-PROGRAM\n"
+                + "/* another comment */\nEND-OF-PROGRAM\n/* a third comment */";
+        Token tokens[] = { new Token(TokenType.BEGPROG, "beginning-of-program"),
+                new Token(TokenType.ENDPROG, "end-of-program"), new Token(TokenType.EOF, "") };
+        validateLexer(program, tokens);
+    }
 }

@@ -26,116 +26,116 @@ import java.io.StreamTokenizer;
 
 public class WorldParser {
 
-	World fWorld;
-	StreamTokenizer fTokenizer;
+    World fWorld;
+    StreamTokenizer fTokenizer;
 
-	public WorldParser() {
-	}
+    public WorldParser() {
+    }
 
-	public World parse(Reader r) throws IOException, WorldParserException {
+    public World parse(Reader r) throws IOException, WorldParserException {
 
-		StreamTokenizer tizer = new StreamTokenizer(r);
-		tizer.commentChar('#');
-		int ttype;
+        StreamTokenizer tizer = new StreamTokenizer(r);
+        tizer.commentChar('#');
+        int ttype;
 
-		while ((ttype = tizer.nextToken()) != StreamTokenizer.TT_EOF) {
-			if (ttype == StreamTokenizer.TT_WORD) {
-				if ("World".equals(tizer.sval)) {
-					fWorld = readWorld(tizer);
-				} else if ("Beepers".equals(tizer.sval)) {
-					if (fWorld == null) {
-						throw new WorldParserException(
-								"Beepers command before World command at line " + tizer.lineno());
-					} else {
-						readBeepers(tizer);
-					}
-				} else if ("Robot".equals(tizer.sval)) {
-					if (fWorld == null) {
-						throw new WorldParserException("Robot command before World command at line " + tizer.lineno());
-					} else {
-						readRobot(tizer);
-					}
-				} else if ("Wall".equals(tizer.sval)) {
-					if (fWorld == null) {
-						throw new WorldParserException("Robot command before World command at line " + tizer.lineno());
-					} else {
-						readWall(tizer);
-					}
-				}
-			} else {
-				throw new WorldParserException("Parser error at line " + tizer.lineno());
-			}
-		}
-		return fWorld;
-	}
+        while ((ttype = tizer.nextToken()) != StreamTokenizer.TT_EOF) {
+            if (ttype == StreamTokenizer.TT_WORD) {
+                if ("World".equals(tizer.sval)) {
+                    fWorld = readWorld(tizer);
+                } else if ("Beepers".equals(tizer.sval)) {
+                    if (fWorld == null) {
+                        throw new WorldParserException(
+                                "Beepers command before World command at line " + tizer.lineno());
+                    } else {
+                        readBeepers(tizer);
+                    }
+                } else if ("Robot".equals(tizer.sval)) {
+                    if (fWorld == null) {
+                        throw new WorldParserException("Robot command before World command at line " + tizer.lineno());
+                    } else {
+                        readRobot(tizer);
+                    }
+                } else if ("Wall".equals(tizer.sval)) {
+                    if (fWorld == null) {
+                        throw new WorldParserException("Robot command before World command at line " + tizer.lineno());
+                    } else {
+                        readWall(tizer);
+                    }
+                }
+            } else {
+                throw new WorldParserException("Parser error at line " + tizer.lineno());
+            }
+        }
+        return fWorld;
+    }
 
-	protected int getInteger(StreamTokenizer tizer, String errorMessage) throws IOException, WorldParserException {
+    protected int getInteger(StreamTokenizer tizer, String errorMessage) throws IOException, WorldParserException {
 
-		int ttype;
+        int ttype;
 
-		ttype = tizer.nextToken();
-		if (ttype != StreamTokenizer.TT_NUMBER) {
-			throw new WorldParserException(errorMessage + " at line " + tizer.lineno());
-		} else {
-			return (int) tizer.nval;
-		}
-	}
+        ttype = tizer.nextToken();
+        if (ttype != StreamTokenizer.TT_NUMBER) {
+            throw new WorldParserException(errorMessage + " at line " + tizer.lineno());
+        } else {
+            return (int) tizer.nval;
+        }
+    }
 
-	protected World readWorld(StreamTokenizer tizer) throws IOException, WorldParserException {
-		int ttype;
+    protected World readWorld(StreamTokenizer tizer) throws IOException, WorldParserException {
+        int ttype;
 
-		int avenues = getInteger(tizer, "No avenues specified in World directive");
+        int avenues = getInteger(tizer, "No avenues specified in World directive");
 
-		int streets = getInteger(tizer, "No streets specified in World directive");
+        int streets = getInteger(tizer, "No streets specified in World directive");
 
-		return new World(avenues, streets);
-	}
+        return new World(avenues, streets);
+    }
 
-	protected void readBeepers(StreamTokenizer tizer) throws IOException, WorldParserException {
-		int ttype;
+    protected void readBeepers(StreamTokenizer tizer) throws IOException, WorldParserException {
+        int ttype;
 
-		int avenue = getInteger(tizer, "No avenue specified in Beepeers directive");
+        int avenue = getInteger(tizer, "No avenue specified in Beepeers directive");
 
-		int street = getInteger(tizer, "No street specified in Beepers directive");
+        int street = getInteger(tizer, "No street specified in Beepers directive");
 
-		int nBeepers = getInteger(tizer, "No beepers specified in Beepers directive");
-		for (int i = 0; i < nBeepers; i++) {
-			fWorld.putBeeper(avenue, street);
-		}
-	}
+        int nBeepers = getInteger(tizer, "No beepers specified in Beepers directive");
+        for (int i = 0; i < nBeepers; i++) {
+            fWorld.putBeeper(avenue, street);
+        }
+    }
 
-	protected void readRobot(StreamTokenizer tizer) throws IOException, WorldParserException {
-		int ttype;
+    protected void readRobot(StreamTokenizer tizer) throws IOException, WorldParserException {
+        int ttype;
 
-		int avenue = getInteger(tizer, "No avenue specified in Robot directive");
+        int avenue = getInteger(tizer, "No avenue specified in Robot directive");
 
-		int street = getInteger(tizer, "No street specified in Robot directive");
+        int street = getInteger(tizer, "No street specified in Robot directive");
 
-		int direction = getInteger(tizer, "No direction specified in Robot directive");
+        int direction = getInteger(tizer, "No direction specified in Robot directive");
 
-		int beepers = getInteger(tizer, "No beepers specified in Robot directive");
+        int beepers = getInteger(tizer, "No beepers specified in Robot directive");
 
-		fWorld.setRobotStartAvenue(avenue);
-		fWorld.setRobotStartStreet(street);
-		fWorld.setRobotStartDirection(direction);
-		fWorld.setRobotStartBeepers(beepers);
-	}
+        fWorld.setRobotStartAvenue(avenue);
+        fWorld.setRobotStartStreet(street);
+        fWorld.setRobotStartDirection(direction);
+        fWorld.setRobotStartBeepers(beepers);
+    }
 
-	protected void readWall(StreamTokenizer tizer) throws IOException, WorldParserException {
-		int ttype;
+    protected void readWall(StreamTokenizer tizer) throws IOException, WorldParserException {
+        int ttype;
 
-		int avenue = getInteger(tizer, "No avenue specified in Wall directive");
+        int avenue = getInteger(tizer, "No avenue specified in Wall directive");
 
-		int street = getInteger(tizer, "No street specified in Wall directive");
+        int street = getInteger(tizer, "No street specified in Wall directive");
 
-		int direction = getInteger(tizer, "No beepers specified in Wall directive");
+        int direction = getInteger(tizer, "No beepers specified in Wall directive");
 
-		if (direction == Robot.NORTH) {
-			fWorld.addEWWall(avenue, street, 1);
-		} else if (direction == Robot.EAST) {
-			fWorld.addNSWall(avenue, street, 1);
-		} else {
-			throw new WorldParserException("Invalid Wall Location " + direction + " at line " + tizer.lineno());
-		}
-	}
+        if (direction == Robot.NORTH) {
+            fWorld.addEWWall(avenue, street, 1);
+        } else if (direction == Robot.EAST) {
+            fWorld.addNSWall(avenue, street, 1);
+        } else {
+            throw new WorldParserException("Invalid Wall Location " + direction + " at line " + tizer.lineno());
+        }
+    }
 }
