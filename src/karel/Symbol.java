@@ -21,19 +21,19 @@
 package karel;
 
 public class Symbol {
-    String sym;
-    int loc;
+	String sym;
+	int loc;
 
-    public Symbol(String s, int l) {
-	sym = s;
-	loc = l;
-    }
+	public Symbol(String s, int l) {
+		sym = s;
+		loc = l;
+	}
 
-    public String getSymbol() {
-	return sym;
-    }
+	public String getSymbol() {
+		return sym;
+	}
 
-    public int getCodePtr() {
-	return loc;
-    }
+	public int getCodePtr() {
+		return loc;
+	}
 }

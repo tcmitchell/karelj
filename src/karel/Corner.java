@@ -22,52 +22,50 @@ package karel;
 
 public class Corner implements java.io.Serializable {
 
-    static final long serialVersionUID = 3510713888408106866L;
+	static final long serialVersionUID = 3510713888408106866L;
 
-    int avenue;
-    int street;
-    int numBeepers;
-    boolean wallToNorth;
-    boolean wallToEast;
+	int avenue;
+	int street;
+	int numBeepers;
+	boolean wallToNorth;
+	boolean wallToEast;
 
-    public Corner(int a, int s) {
-	avenue = a;
-	street = s;
-    }
-    
-    public boolean equals(Object obj) {
-	if (obj instanceof Corner) {
-	    Corner that = (Corner) obj;
-	    return (this.avenue == that.avenue
-		    && this.street == that.street
-		    && this.numBeepers == that.numBeepers
-		    && this.wallToNorth == that.wallToNorth
-		    && this.wallToEast == that.wallToEast);
+	public Corner(int a, int s) {
+		avenue = a;
+		street = s;
 	}
-	return false;
-    }
 
-    public void setBeepers(int n) {
-	numBeepers = n;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Corner) {
+			Corner that = (Corner) obj;
+			return (this.avenue == that.avenue && this.street == that.street && this.numBeepers == that.numBeepers
+					&& this.wallToNorth == that.wallToNorth && this.wallToEast == that.wallToEast);
+		}
+		return false;
+	}
 
-    public int getBeepers() {
-	return numBeepers;
-    }
+	public void setBeepers(int n) {
+		numBeepers = n;
+	}
 
-    public boolean hasNorthWall() {
-	return wallToNorth;
-    }
+	public int getBeepers() {
+		return numBeepers;
+	}
 
-    public void setNorthWall(boolean wall) {
-	wallToNorth = wall;
-    }
+	public boolean hasNorthWall() {
+		return wallToNorth;
+	}
 
-    public boolean hasEastWall() {
-	return wallToEast;
-    }
+	public void setNorthWall(boolean wall) {
+		wallToNorth = wall;
+	}
 
-    public void setEastWall(boolean wall) {
-	wallToEast = wall;
-    }
+	public boolean hasEastWall() {
+		return wallToEast;
+	}
+
+	public void setEastWall(boolean wall) {
+		wallToEast = wall;
+	}
 }

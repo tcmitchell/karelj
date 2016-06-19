@@ -22,10 +22,10 @@ package karel;
 
 public class KarelException extends Exception {
 
-    public KarelException() {
-    }
+	public KarelException() {
+	}
 
-    public KarelException(String msg) {
-	super(msg);
-    }
+	public KarelException(String msg) {
+		super(msg);
+	}
 }

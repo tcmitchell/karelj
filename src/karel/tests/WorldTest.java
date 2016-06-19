@@ -20,241 +20,224 @@
 
 package karel.tests;
 
-import java.io.*;
-import junit.framework.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StringReader;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import karel.KarelNoBeeperAtCornerException;
 import karel.World;
 import karel.WorldParser;
 import karel.WorldParserException;
-import karel.KarelNoBeeperAtCornerException;
 
 /**
  *
  */
 public class WorldTest extends TestCase {
 
-    protected World fWorld;
-    protected int fAvenues = 7;
-    protected int fStreets = 5;
+	protected World fWorld;
+	protected int fAvenues = 7;
+	protected int fStreets = 5;
 
-    public WorldTest(String name) {
-	super(name);
-    }
-
-    public static void main (String[] args) {
-	junit.textui.TestRunner.run (suite());
-    }
-
-    public static Test suite() {
-	return new TestSuite(WorldTest.class);
-    }
-
-    protected void setUp() {
-	fWorld = new World(fAvenues, fStreets);
-    }
-
-    public void testBounds() {
-	assertTrue("isInBounds()", fWorld.isInBounds(fAvenues, fStreets));
-	assertTrue("isInBounds()", ! fWorld.isInBounds(fAvenues + 1,
-						   fStreets + 1));
-    }
-
-    public void testBeepers() {
-	assertTrue(!fWorld.checkBeeper(fAvenues, fStreets));
-	assertTrue(fWorld.putBeeper(fAvenues, fStreets));
-	assertTrue(fWorld.checkBeeper(fAvenues, fStreets));
-	try {
-	    fWorld.pickBeeper(fAvenues, fStreets);
-	} catch (KarelNoBeeperAtCornerException e) {
-	    fail("Unexpected KarelNoBeeperAtCornerException");
+	public WorldTest(String name) {
+		super(name);
 	}
-	assertTrue(!fWorld.checkBeeper(fAvenues, fStreets));
-	try {
-	    fWorld.pickBeeper(fAvenues, fStreets);
-	    fail("Expected KarelNoBeeperAtCornerException");
-	} catch (KarelNoBeeperAtCornerException e) {
+
+	public static void main(String[] args) {
+		junit.textui.TestRunner.run(suite());
 	}
-    }
 
-    /**
-     * Make sure there are walls to the east and north of the
-     * world.  This was a bug, hence a test.
-     */
-    public void testWalls() {
-  	for (int a=1; a<fAvenues; a++) {
-  	    assertTrue(fWorld.checkEWWall(a, fStreets));
-  	}
-	for (int s=1; s<fStreets; s++) {
-  	    assertTrue(fWorld.checkNSWall(fAvenues, s));
+	public static Test suite() {
+		return new TestSuite(WorldTest.class);
 	}
-    }
 
-    public void testEWWall() {
-	int startAve = 1;
-	int northOfStreet = 1;
-	int nBlocks = 1;
-	fWorld.addEWWall(startAve, northOfStreet, nBlocks);
-
-	for (int i=0; i<nBlocks; i++) {
-	    assertTrue(fWorld.checkEWWall(startAve + i, northOfStreet));
+	@Override
+	protected void setUp() {
+		fWorld = new World(fAvenues, fStreets);
 	}
-	assertTrue( ! fWorld.checkEWWall(startAve + nBlocks, northOfStreet));
-    }
 
-    public void testNSWall() {
-	int eastOfAve = 1;
-	int startStreet = 1;
-	int nBlocks = 1;
-	fWorld.addNSWall(eastOfAve, startStreet, nBlocks);
-
-	for (int i=0; i<nBlocks; i++) {
-	    assertTrue(fWorld.checkNSWall(eastOfAve, startStreet + i));
+	public void testBounds() {
+		assertTrue("isInBounds()", fWorld.isInBounds(fAvenues, fStreets));
+		assertTrue("isInBounds()", !fWorld.isInBounds(fAvenues + 1, fStreets + 1));
 	}
-	assertTrue( ! fWorld.checkNSWall(eastOfAve, startStreet + nBlocks));
-    }
 
-    protected void initForEquals(World w) {
-    }
-
-    public void testEquals() {
-	World world2 = new World(fAvenues, fStreets);
-
-	initForEquals(fWorld);
-	initForEquals(world2);
-	assertEquals("World.equals method failed:", fWorld, world2);
-    }
-
-    public void testSerialization() {
-	File tmpFile = null;
-
-	initForEquals(fWorld);
-
-	try {
-	    tmpFile = File.createTempFile("WorldTest", ".ser");
-	    FileOutputStream fos = new FileOutputStream(tmpFile);
-	    ObjectOutputStream out = new ObjectOutputStream(fos);
-	    out.writeObject(fWorld);
-	    out.close();
-	    FileInputStream fis = new FileInputStream(tmpFile);
-	    ObjectInputStream in = new ObjectInputStream(fis);
-	    World world2 = (World) in.readObject();
-	    in.close();
-	    assertEquals("World serialization failed:", fWorld, world2);
-	} catch (FileNotFoundException e) {
-	    fail(e.toString());
-	} catch (IOException e) {
-	    fail(e.toString());
-	} catch (ClassNotFoundException e) {
-	    fail(e.toString());
-	} finally {
-	    tmpFile.delete();
+	public void testBeepers() {
+		assertTrue(!fWorld.checkBeeper(fAvenues, fStreets));
+		assertTrue(fWorld.putBeeper(fAvenues, fStreets));
+		assertTrue(fWorld.checkBeeper(fAvenues, fStreets));
+		try {
+			fWorld.pickBeeper(fAvenues, fStreets);
+		} catch (KarelNoBeeperAtCornerException e) {
+			fail("Unexpected KarelNoBeeperAtCornerException");
+		}
+		assertTrue(!fWorld.checkBeeper(fAvenues, fStreets));
+		try {
+			fWorld.pickBeeper(fAvenues, fStreets);
+			fail("Expected KarelNoBeeperAtCornerException");
+		} catch (KarelNoBeeperAtCornerException e) {
+		}
 	}
-    }
 
-    public void testParser() {
-	String input =
-	    "World 5 5\n"
-	    + "Beepers 3 3 1\n"
-	    + "Robot 4 3 1 0\n"
-	    + "Wall 2 2 1\n"
-	    + "Wall 3 2 1\n"
-	    + "Wall 1 1 4\n"
-	    + "Wall 2 1 4\n"
-	    + "Wall 2 2 4\n"
-	    + "Wall 3 1 4\n"
-	    + "Wall 3 2 4\n"
-	    + "Wall 3 3 4\n"
-	    + "Wall 4 1 4\n"
-	    + "Wall 4 2 4\n"
-	    + "Wall 4 3 4\n"
-	    + "Wall 4 4 4";
-
-	StringReader sr = new StringReader(input);
-	WorldParser parser = new WorldParser();
-	try {
-	    fWorld = parser.parse(sr);
-	    assertTrue(fWorld instanceof World);
-	    try {
-		assertTrue(fWorld.pickBeeper(3, 3));
-		fWorld.pickBeeper(3, 3);
-		fail("Expected KarelNoBeeperAtCornerException");
-	    } catch (KarelNoBeeperAtCornerException e) {
-	    }
-	    assertEquals(4, fWorld.getRobotStartAvenue());
-	    assertEquals(3, fWorld.getRobotStartStreet());
-	    assertEquals(1, fWorld.getRobotStartDirection());
-	    assertEquals(0, fWorld.getRobotStartBeepers());
-	    assertTrue(fWorld.checkEWWall(2, 2));
-	    assertTrue(fWorld.checkEWWall(3, 2));
-	    assertTrue(fWorld.checkNSWall(1, 1));
-	    assertTrue(fWorld.checkNSWall(2, 1));
-	    assertTrue(fWorld.checkNSWall(2, 2));
-	    assertTrue(fWorld.checkNSWall(3, 1));
-	    assertTrue(fWorld.checkNSWall(3, 2));
-	    assertTrue(fWorld.checkNSWall(3, 3));
-	    assertTrue(fWorld.checkNSWall(4, 1));
-	    assertTrue(fWorld.checkNSWall(4, 2));
-	    assertTrue(fWorld.checkNSWall(4, 3));
-	    assertTrue(fWorld.checkNSWall(4, 4));
-	    sr.close();
-	} catch (WorldParserException e) {
-	    fail(e.toString());
-	} catch (IOException e) {
-	    fail(e.toString());
+	/**
+	 * Make sure there are walls to the east and north of the world. This was a
+	 * bug, hence a test.
+	 */
+	public void testWalls() {
+		for (int a = 1; a < fAvenues; a++) {
+			assertTrue(fWorld.checkEWWall(a, fStreets));
+		}
+		for (int s = 1; s < fStreets; s++) {
+			assertTrue(fWorld.checkNSWall(fAvenues, s));
+		}
 	}
-    }
 
-    public void testComments() {
-	String input =
-	    "# This is a comment\n"
-	    + "World 5 5\n"
-	    + "# and another comment\n"
-	    + "Beepers 3 3 1 # and an inline comment\n"
-	    + "Robot 4 3 1 0\n"
-	    + "Wall 2 2 1\n"
-	    + "Wall 3 2 1\n"
-	    + "Wall 1 1 4\n"
-	    + "Wall 2 1 4\n"
-	    + "Wall 2 2 4\n"
-	    + "Wall 3 1 4\n"
-	    + "Wall 3 2 4\n"
-	    + "Wall 3 3 4\n"
-	    + "Wall 4 1 4\n"
-	    + "Wall 4 2 4\n"
-	    + "Wall 4 3 4\n"
-	    + "Wall 4 4 4";
+	public void testEWWall() {
+		int startAve = 1;
+		int northOfStreet = 1;
+		int nBlocks = 1;
+		fWorld.addEWWall(startAve, northOfStreet, nBlocks);
 
-	StringReader sr = new StringReader(input);
-	WorldParser parser = new WorldParser();
-	try {
-	    fWorld = parser.parse(sr);
-	    assertTrue(fWorld instanceof World);
-	    try {
-		assertTrue(fWorld.pickBeeper(3, 3));
-		fWorld.pickBeeper(3, 3);
-		fail("Expected KarelNoBeeperAtCornerException");
-	    } catch (KarelNoBeeperAtCornerException e) {
-	    }
-	    assertEquals(4, fWorld.getRobotStartAvenue());
-	    assertEquals(3, fWorld.getRobotStartStreet());
-	    assertEquals(1, fWorld.getRobotStartDirection());
-	    assertEquals(0, fWorld.getRobotStartBeepers());
-	    assertTrue(fWorld.checkEWWall(2, 2));
-	    assertTrue(fWorld.checkEWWall(3, 2));
-	    assertTrue(fWorld.checkNSWall(1, 1));
-	    assertTrue(fWorld.checkNSWall(2, 1));
-	    assertTrue(fWorld.checkNSWall(2, 2));
-	    assertTrue(fWorld.checkNSWall(3, 1));
-	    assertTrue(fWorld.checkNSWall(3, 2));
-	    assertTrue(fWorld.checkNSWall(3, 3));
-	    assertTrue(fWorld.checkNSWall(4, 1));
-	    assertTrue(fWorld.checkNSWall(4, 2));
-	    assertTrue(fWorld.checkNSWall(4, 3));
-	    assertTrue(fWorld.checkNSWall(4, 4));
-	    sr.close();
-	} catch (WorldParserException e) {
-	    fail(e.toString());
-	} catch (IOException e) {
-	    fail(e.toString());
+		for (int i = 0; i < nBlocks; i++) {
+			assertTrue(fWorld.checkEWWall(startAve + i, northOfStreet));
+		}
+		assertTrue(!fWorld.checkEWWall(startAve + nBlocks, northOfStreet));
 	}
-    }
+
+	public void testNSWall() {
+		int eastOfAve = 1;
+		int startStreet = 1;
+		int nBlocks = 1;
+		fWorld.addNSWall(eastOfAve, startStreet, nBlocks);
+
+		for (int i = 0; i < nBlocks; i++) {
+			assertTrue(fWorld.checkNSWall(eastOfAve, startStreet + i));
+		}
+		assertTrue(!fWorld.checkNSWall(eastOfAve, startStreet + nBlocks));
+	}
+
+	protected void initForEquals(World w) {
+	}
+
+	public void testEquals() {
+		World world2 = new World(fAvenues, fStreets);
+
+		initForEquals(fWorld);
+		initForEquals(world2);
+		assertEquals("World.equals method failed:", fWorld, world2);
+	}
+
+	public void testSerialization() {
+		File tmpFile = null;
+
+		initForEquals(fWorld);
+
+		try {
+			tmpFile = File.createTempFile("WorldTest", ".ser");
+			FileOutputStream fos = new FileOutputStream(tmpFile);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(fWorld);
+			out.close();
+			FileInputStream fis = new FileInputStream(tmpFile);
+			ObjectInputStream in = new ObjectInputStream(fis);
+			World world2 = (World) in.readObject();
+			in.close();
+			assertEquals("World serialization failed:", fWorld, world2);
+		} catch (FileNotFoundException e) {
+			fail(e.toString());
+		} catch (IOException e) {
+			fail(e.toString());
+		} catch (ClassNotFoundException e) {
+			fail(e.toString());
+		} finally {
+			tmpFile.delete();
+		}
+	}
+
+	public void testParser() {
+		String input = "World 5 5\n" + "Beepers 3 3 1\n" + "Robot 4 3 1 0\n" + "Wall 2 2 1\n" + "Wall 3 2 1\n"
+				+ "Wall 1 1 4\n" + "Wall 2 1 4\n" + "Wall 2 2 4\n" + "Wall 3 1 4\n" + "Wall 3 2 4\n" + "Wall 3 3 4\n"
+				+ "Wall 4 1 4\n" + "Wall 4 2 4\n" + "Wall 4 3 4\n" + "Wall 4 4 4";
+
+		StringReader sr = new StringReader(input);
+		WorldParser parser = new WorldParser();
+		try {
+			fWorld = parser.parse(sr);
+			assertTrue(fWorld instanceof World);
+			try {
+				assertTrue(fWorld.pickBeeper(3, 3));
+				fWorld.pickBeeper(3, 3);
+				fail("Expected KarelNoBeeperAtCornerException");
+			} catch (KarelNoBeeperAtCornerException e) {
+			}
+			assertEquals(4, fWorld.getRobotStartAvenue());
+			assertEquals(3, fWorld.getRobotStartStreet());
+			assertEquals(1, fWorld.getRobotStartDirection());
+			assertEquals(0, fWorld.getRobotStartBeepers());
+			assertTrue(fWorld.checkEWWall(2, 2));
+			assertTrue(fWorld.checkEWWall(3, 2));
+			assertTrue(fWorld.checkNSWall(1, 1));
+			assertTrue(fWorld.checkNSWall(2, 1));
+			assertTrue(fWorld.checkNSWall(2, 2));
+			assertTrue(fWorld.checkNSWall(3, 1));
+			assertTrue(fWorld.checkNSWall(3, 2));
+			assertTrue(fWorld.checkNSWall(3, 3));
+			assertTrue(fWorld.checkNSWall(4, 1));
+			assertTrue(fWorld.checkNSWall(4, 2));
+			assertTrue(fWorld.checkNSWall(4, 3));
+			assertTrue(fWorld.checkNSWall(4, 4));
+			sr.close();
+		} catch (WorldParserException e) {
+			fail(e.toString());
+		} catch (IOException e) {
+			fail(e.toString());
+		}
+	}
+
+	public void testComments() {
+		String input = "# This is a comment\n" + "World 5 5\n" + "# and another comment\n"
+				+ "Beepers 3 3 1 # and an inline comment\n" + "Robot 4 3 1 0\n" + "Wall 2 2 1\n" + "Wall 3 2 1\n"
+				+ "Wall 1 1 4\n" + "Wall 2 1 4\n" + "Wall 2 2 4\n" + "Wall 3 1 4\n" + "Wall 3 2 4\n" + "Wall 3 3 4\n"
+				+ "Wall 4 1 4\n" + "Wall 4 2 4\n" + "Wall 4 3 4\n" + "Wall 4 4 4";
+
+		StringReader sr = new StringReader(input);
+		WorldParser parser = new WorldParser();
+		try {
+			fWorld = parser.parse(sr);
+			assertTrue(fWorld instanceof World);
+			try {
+				assertTrue(fWorld.pickBeeper(3, 3));
+				fWorld.pickBeeper(3, 3);
+				fail("Expected KarelNoBeeperAtCornerException");
+			} catch (KarelNoBeeperAtCornerException e) {
+			}
+			assertEquals(4, fWorld.getRobotStartAvenue());
+			assertEquals(3, fWorld.getRobotStartStreet());
+			assertEquals(1, fWorld.getRobotStartDirection());
+			assertEquals(0, fWorld.getRobotStartBeepers());
+			assertTrue(fWorld.checkEWWall(2, 2));
+			assertTrue(fWorld.checkEWWall(3, 2));
+			assertTrue(fWorld.checkNSWall(1, 1));
+			assertTrue(fWorld.checkNSWall(2, 1));
+			assertTrue(fWorld.checkNSWall(2, 2));
+			assertTrue(fWorld.checkNSWall(3, 1));
+			assertTrue(fWorld.checkNSWall(3, 2));
+			assertTrue(fWorld.checkNSWall(3, 3));
+			assertTrue(fWorld.checkNSWall(4, 1));
+			assertTrue(fWorld.checkNSWall(4, 2));
+			assertTrue(fWorld.checkNSWall(4, 3));
+			assertTrue(fWorld.checkNSWall(4, 4));
+			sr.close();
+		} catch (WorldParserException e) {
+			fail(e.toString());
+		} catch (IOException e) {
+			fail(e.toString());
+		}
+	}
 }

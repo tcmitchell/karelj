@@ -22,78 +22,80 @@ package karel;
 
 public class Instruction implements java.io.Serializable {
 
-    static final long serialVersionUID = -2239955774797876234L;
+	static final long serialVersionUID = -2239955774797876234L;
 
-    static final boolean DEBUG = false;
+	static final boolean DEBUG = false;
 
-    protected String description;
+	protected String description;
 
-    public Instruction(String desc) {
-	description = desc;
-    }
-
-    public String toString() {
-	return "#<Instruction " + description + ">";
-    }
-
-    public boolean equals(Object obj) {
-	if (obj instanceof Instruction) {
-	    Instruction that = (Instruction) obj;
-	    return (this.description.equals(that.description));
+	public Instruction(String desc) {
+		description = desc;
 	}
-	return false;
-    }
 
-//      public boolean execute(Robot r) throws KarelException {
-//  	if (DEBUG)
-//  	    System.out.println("Executing default implementation of "
-//  			       + description);
-//  	return true;
-//      }
+	@Override
+	public String toString() {
+		return "#<Instruction " + description + ">";
+	}
 
-    public boolean execute(KarelVM vm) throws KarelException {
-	if (DEBUG)
-	    System.out.println("Executing default implementation of "
-			       + description);
-	return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Instruction) {
+			Instruction that = (Instruction) obj;
+			return (this.description.equals(that.description));
+		}
+		return false;
+	}
 
-    public String getDescription() {
-	return description;
-    }
+	// public boolean execute(Robot r) throws KarelException {
+	// if (DEBUG)
+	// System.out.println("Executing default implementation of "
+	// + description);
+	// return true;
+	// }
 
-    public static Instruction RETURN =
-	new Instruction("RETURN") {
-		public boolean execute(KarelVM vm) throws KarelException {
-		    return true;
+	public boolean execute(KarelVM vm) throws KarelException {
+		if (DEBUG) {
+			System.out.println("Executing default implementation of " + description);
 		}
-	    };
-    
-    public static Instruction BRANCH =
-	new Instruction("BRANCH") {
+		return true;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public static Instruction RETURN = new Instruction("RETURN") {
+		@Override
 		public boolean execute(KarelVM vm) throws KarelException {
-  		    return vm.branch();
+			return true;
 		}
-	    };
-    
-    public static Instruction CONDBRANCH =
-	new Instruction("CONDBRANCH") {
+	};
+
+	public static Instruction BRANCH = new Instruction("BRANCH") {
+		@Override
 		public boolean execute(KarelVM vm) throws KarelException {
-  		    return vm.condbranch();
+			return vm.branch();
 		}
-	    };
-    
-    public static Instruction ITERATE =
-	new Instruction("ITERATE") {
+	};
+
+	public static Instruction CONDBRANCH = new Instruction("CONDBRANCH") {
+		@Override
 		public boolean execute(KarelVM vm) throws KarelException {
-		    return vm.iterate();
+			return vm.condbranch();
 		}
-	    };
-    
-    public static Instruction CALL =
-	new Instruction("CALL") {
+	};
+
+	public static Instruction ITERATE = new Instruction("ITERATE") {
+		@Override
 		public boolean execute(KarelVM vm) throws KarelException {
-		    return vm.callproc();
+			return vm.iterate();
 		}
-	    };
+	};
+
+	public static Instruction CALL = new Instruction("CALL") {
+		@Override
+		public boolean execute(KarelVM vm) throws KarelException {
+			return vm.callproc();
+		}
+	};
 }

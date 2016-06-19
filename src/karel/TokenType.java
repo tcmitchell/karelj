@@ -22,37 +22,38 @@ package karel;
 
 public class TokenType {
 
-    protected String fName;
+	protected String fName;
 
-    public TokenType(String name) {
-	fName = name;
-    }
+	public TokenType(String name) {
+		fName = name;
+	}
 
-    public String toString() {
-	return fName;
-    }
+	@Override
+	public String toString() {
+		return fName;
+	}
 
-    public final static TokenType EOF = new TokenType("EOF");
-    public final static TokenType CHAR = new TokenType("CHAR");
+	public final static TokenType EOF = new TokenType("EOF");
+	public final static TokenType CHAR = new TokenType("CHAR");
 
-    public final static TokenType AS = new TokenType("AS");
-    public final static TokenType BEGEXEC = new TokenType("BEGEXEC");
-    public final static TokenType BEGIN = new TokenType("BEGIN");
-    public final static TokenType BEGPROG = new TokenType("BEGPROG");
-    public final static TokenType DEFINST = new TokenType("DEFINST");
-    public final static TokenType DO = new TokenType("DO");
-    public final static TokenType ELSE = new TokenType("ELSE");
-    public final static TokenType END = new TokenType("END");
-    public final static TokenType ENDEXEC = new TokenType("ENDEXEC");
-    public final static TokenType ENDPROG = new TokenType("ENDPROG");
-    public final static TokenType IF = new TokenType("IF");
-    public final static TokenType ITERATE = new TokenType("ITERATE");
-    public final static TokenType THEN = new TokenType("THEN");
-    public final static TokenType TIMES = new TokenType("TIMES");
-    public final static TokenType WHILE = new TokenType("WHILE");
-    public final static TokenType KEY = new TokenType("KEY");
-    public final static TokenType BLTIN = new TokenType("BLTIN");
-    public final static TokenType TEST = new TokenType("TEST");
-    public final static TokenType NUMBER = new TokenType("NUMBER");
-    public final static TokenType NAME = new TokenType("NAME");
+	public final static TokenType AS = new TokenType("AS");
+	public final static TokenType BEGEXEC = new TokenType("BEGEXEC");
+	public final static TokenType BEGIN = new TokenType("BEGIN");
+	public final static TokenType BEGPROG = new TokenType("BEGPROG");
+	public final static TokenType DEFINST = new TokenType("DEFINST");
+	public final static TokenType DO = new TokenType("DO");
+	public final static TokenType ELSE = new TokenType("ELSE");
+	public final static TokenType END = new TokenType("END");
+	public final static TokenType ENDEXEC = new TokenType("ENDEXEC");
+	public final static TokenType ENDPROG = new TokenType("ENDPROG");
+	public final static TokenType IF = new TokenType("IF");
+	public final static TokenType ITERATE = new TokenType("ITERATE");
+	public final static TokenType THEN = new TokenType("THEN");
+	public final static TokenType TIMES = new TokenType("TIMES");
+	public final static TokenType WHILE = new TokenType("WHILE");
+	public final static TokenType KEY = new TokenType("KEY");
+	public final static TokenType BLTIN = new TokenType("BLTIN");
+	public final static TokenType TEST = new TokenType("TEST");
+	public final static TokenType NUMBER = new TokenType("NUMBER");
+	public final static TokenType NAME = new TokenType("NAME");
 }

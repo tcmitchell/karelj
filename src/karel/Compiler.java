@@ -21,8 +21,8 @@
 package karel;
 
 import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 /*
  * To Do:
@@ -42,22 +42,22 @@ import java.io.IOException;
  *
  */
 public class Compiler {
-    public static void main (String[] args) {
-	String infile = args[0];
-	String outfile = args[1];
+	public static void main(String[] args) {
+		String infile = args[0];
+		String outfile = args[1];
 
-	Parser parser = new Parser();
-	
-	try {
-	    Program prog = parser.parse(infile);
-//  	    prog.print();
-	    FileOutputStream fos = new FileOutputStream(outfile);
-	    ObjectOutputStream out = new ObjectOutputStream(fos);
-	    out.writeObject(prog);
-	    out.flush();
-	    out.close();
-	} catch (IOException e) {
-	    e.printStackTrace();
+		Parser parser = new Parser();
+
+		try {
+			Program prog = parser.parse(infile);
+			// prog.print();
+			FileOutputStream fos = new FileOutputStream(outfile);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(prog);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-    }
 }

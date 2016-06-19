@@ -22,7 +22,7 @@ package karel;
 
 public class WorldParserException extends KarelException {
 
-    public WorldParserException(String msg) {
-	super(msg);
-    }
+	public WorldParserException(String msg) {
+		super(msg);
+	}
 }

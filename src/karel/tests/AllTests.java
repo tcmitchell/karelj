@@ -20,7 +20,8 @@
 
 package karel.tests;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * TestSuite that runs all the sample tests
@@ -28,16 +29,16 @@ import junit.framework.*;
  */
 public class AllTests {
 
-    public static void main (String[] args) {
-	junit.textui.TestRunner.run (suite());
-    }
+	public static void main(String[] args) {
+		junit.textui.TestRunner.run(suite());
+	}
 
-    public static Test suite ( ) {
-	TestSuite suite= new TestSuite("All Karel Tests");
-	suite.addTest(ProgramTest.suite());
-	suite.addTest(WorldTest.suite());
-	suite.addTest(RobotTest.suite());
-	suite.addTest(LexerTest.suite());
-	return suite;
-    }
+	public static Test suite() {
+		TestSuite suite = new TestSuite("All Karel Tests");
+		suite.addTest(ProgramTest.suite());
+		suite.addTest(WorldTest.suite());
+		suite.addTest(RobotTest.suite());
+		suite.addTest(LexerTest.suite());
+		return suite;
+	}
 }

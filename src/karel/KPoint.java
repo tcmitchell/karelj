@@ -21,53 +21,55 @@
 package karel;
 
 public class KPoint implements Cloneable, java.io.Serializable {
-    public int avenue;
-    public int street;
+	public int avenue;
+	public int street;
 
-    public KPoint() {
-	avenue = 0;
-	street = 0;
-    }
-
-    public KPoint(int a, int s) {
-	avenue = a;
-	street = s;
-    }
-
-    public Object clone() {
-	try {
-	    return super.clone();
-	} catch (CloneNotSupportedException e) {
-	    return null;
+	public KPoint() {
+		avenue = 0;
+		street = 0;
 	}
-    }
 
-    public boolean equals(Object obj) {
-	if (obj instanceof KPoint) {
-	    KPoint that = (KPoint) obj;
-	    return (this.avenue == that.avenue
-		    && this.street == that.street);
+	public KPoint(int a, int s) {
+		avenue = a;
+		street = s;
 	}
-	return false;
-    }
 
-    public String toString() {
-	return "#<KPoint " + avenue + "," + street + ">";
-    }
+	@Override
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
+	}
 
-    public void setAvenue(int a) {
-	avenue = a;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof KPoint) {
+			KPoint that = (KPoint) obj;
+			return (this.avenue == that.avenue && this.street == that.street);
+		}
+		return false;
+	}
 
-    public void setStreet(int s) {
-	street = s;
-    }
+	@Override
+	public String toString() {
+		return "#<KPoint " + avenue + "," + street + ">";
+	}
 
-    public int getAvenue() {
-	return avenue;
-    }
+	public void setAvenue(int a) {
+		avenue = a;
+	}
 
-    public int getStreet() {
-	return street;
-    }
+	public void setStreet(int s) {
+		street = s;
+	}
+
+	public int getAvenue() {
+		return avenue;
+	}
+
+	public int getStreet() {
+		return street;
+	}
 }
