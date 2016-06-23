@@ -21,4 +21,14 @@
 package karel;
 
 public class KarelCrashedException extends KarelException {
+    public KarelCrashedException() {
+    }
+    
+    public KarelCrashedException(String message) {
+        super(message);
+    }
+    
+    public KarelCrashedException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

@@ -21,4 +21,15 @@
 package karel;
 
 public class KarelNoBeeperAtCornerException extends KarelException {
+    public KarelNoBeeperAtCornerException() {
+    }
+    
+    public KarelNoBeeperAtCornerException(String message) {
+        super(message);
+    }
+    
+    public KarelNoBeeperAtCornerException(String message, Throwable cause) {
+        super(message, cause);
+        
+    }
 }

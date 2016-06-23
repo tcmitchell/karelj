@@ -28,4 +28,8 @@ public class KarelException extends Exception {
     public KarelException(String msg) {
         super(msg);
     }
+    
+    public KarelException(String msg,Throwable cause) {
+        super(msg, cause);
+    }
 }

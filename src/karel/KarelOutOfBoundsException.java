@@ -21,4 +21,15 @@
 package karel;
 
 public class KarelOutOfBoundsException extends KarelException {
+    
+    public KarelOutOfBoundsException() {
+    }
+    
+    public KarelOutOfBoundsException(String message) {
+        super(message);
+    }
+    
+    public KarelOutOfBoundsException(String message, Throwable casue) {
+        super(message, casue);
+    }
 }

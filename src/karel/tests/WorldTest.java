@@ -59,7 +59,7 @@ public class WorldTest extends TestCase {
     }
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         fWorld = new World(fAvenues, fStreets);
     }
 
